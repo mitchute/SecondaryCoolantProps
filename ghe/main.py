@@ -1,0 +1,30 @@
+from os import environ
+from pathlib import Path
+from sys import argv, path
+
+# use the ghe import as a flag for determining whether we need to add to path
+try:
+    import ghe
+except ImportError:
+    # we are probably in VSCode or some other development setup
+    # just add the root of the repo to path just like it will be in deployment
+    root_dir = Path(__file__).parent.parent.resolve()
+    path.insert(0, str(root_dir))
+
+from ghe.library import add
+
+
+def main_cli():
+    try:
+        i = int(argv[1])
+        y = add(i, 1)
+        print(f"Added and got {y}")
+        return y
+    except IndexError:
+        print("Bad command line, need to pass one argument, an integer")
+    except ValueError:
+        print("Bad command line argument, needs to be an integer")
+
+
+if __name__ == "__main__":
+    main_cli()

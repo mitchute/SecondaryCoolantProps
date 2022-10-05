@@ -1,0 +1,4 @@
+
+# for building documentation
+sphinx
+nose
