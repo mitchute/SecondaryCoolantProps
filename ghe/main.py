@@ -10,14 +10,15 @@ except ImportError:
     root_dir = Path(__file__).parent.parent.resolve()
     path.insert(0, str(root_dir))
 
-from ghe.library import add
+from ghe.library import MathLibrary
 
 
 def main_cli():
     try:
         i = int(argv[1])
-        y = add(i, 1)
-        print(f"Added and got {y}")
+        m = MathLibrary(1)
+        y = m.add(i)
+        print(f"Thanks for using the GHE library!  We added 1 + {i} and got {y}")
         return y
     except IndexError:
         print("Bad command line, need to pass one argument, an integer")
