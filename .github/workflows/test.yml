@@ -16,6 +16,6 @@ jobs:
         with:
           python-version: 3.8
       - name: Install Pip Dependencies
-        run: pip install nose
+        run: pip install nose coverage
       - name: Run Tests
         run: nosetests --with-coverage --cover-package ghe  # --cover-html for local html results
