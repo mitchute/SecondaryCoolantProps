@@ -11,9 +11,11 @@ Code is checked for style and with unit tests by GitHub Actions using nosetests 
 
 ## Documentation
 
+[![Sphinx docs to gh-pages](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/docs.yml/badge.svg)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/docs.yml)
+
 [![gh-pages](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/pages/pages-build-deployment)
 
-Docs are built by GitHub Actions and deployed via GH-Pages to https://myoldmopar.github.io/ghe-scaffold/
+Docs are built from Sphinx by GitHub Actions and followed up with a deployment to GH-Pages using Actions, available at https://myoldmopar.github.io/ghe-scaffold/
 
 ## Releases
 
