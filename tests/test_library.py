@@ -12,10 +12,11 @@ except ImportError:
     path.insert(0, str(root_dir))
 
 
-from ghe.library import add
+from ghe.library import MathLibrary
 
 class TestLibraryAdd(TestCase):
 
     def test_add(self):
-        y = add(2, 1)
+        m = MathLibrary(2)
+        y = m.add(1)
         self.assertEqual(3, y)
