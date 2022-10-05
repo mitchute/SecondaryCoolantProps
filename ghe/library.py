@@ -7,6 +7,7 @@ class MathLibrary:
 
         :param x: the base x value to store for later
         """
+        self.x = x
 
     def add(self, y: int) -> int:
         """
