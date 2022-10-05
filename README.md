@@ -14,3 +14,11 @@ Code is checked for style and with unit tests by GitHub Actions using nosetests 
 [![gh-pages](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/pages/pages-build-deployment)
 
 Docs are built by GitHub Actions and deployed via GH-Pages to https://myoldmopar.github.io/ghe-scaffold/
+
+## Releases
+
+[![PyPIRelease](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/release.yml/badge.svg)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/release.yml)
+
+When a release is tagged, a GitHub Action workflow will create a Python wheel and upload it to the TestPyPi server.
+
+To install into an existing Python environment, execute `pip install -i https://test.pypi.org/simple/ GHE-Designer-Scaffold`
