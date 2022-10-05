@@ -4,7 +4,7 @@ class MathLibrary:
     def __init__(self, x: int) -> None:
         """
         Constructor for the math library, taking a single argument to store as x
-        
+
         :param x: the base x value to store for later
         """
 
