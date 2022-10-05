@@ -1,10 +1,9 @@
-from os import environ
 from pathlib import Path
 from sys import argv, path
 
 # use the ghe import as a flag for determining whether we need to add to path
 try:
-    import ghe
+    import ghe  # noqa: F401
 except ImportError:
     # we are probably in VSCode or some other development setup
     # just add the root of the repo to path just like it will be in deployment
