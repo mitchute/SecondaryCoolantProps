@@ -7,7 +7,8 @@ readme_contents = readme_file.read_text()
 
 setup(
     name="GHE Designer Scaffold",
-    version="0.2",
+    version="0.3",
+    packages=['ghe'],
     description="A collection of GHE functions and design tools",
     long_description=readme_contents,
     long_description_content_type='text/markdown',
