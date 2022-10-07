@@ -9,7 +9,7 @@ class BaseFluid(ABC):
     def __init__(self, conc: float = 0.0) -> None:
         """
         A constructor for a base fluid, that takes a concentration as an argument.
-        Derived classes can decide how to handle the concentration argument and 
+        Derived classes can decide how to handle the concentration argument and
         their own constructor interface as needed to construct and manage that
         specific derived class.
         :param conc: Concentration, in percent, from 0 to 100
