@@ -18,4 +18,4 @@ jobs:
       - name: Install Pip Dependencies
         run: pip install nose coverage
       - name: Run Tests
-        run: nosetests --with-coverage --cover-package ghe  # --cover-html for local html results
+        run: nosetests --with-coverage --cover-package scp  # --cover-html for local html results
