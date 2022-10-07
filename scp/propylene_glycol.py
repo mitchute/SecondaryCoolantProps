@@ -1,7 +1,7 @@
 from math import exp, log10
 from typing import Union
 
-from scp.base_fluid import BaseFluid
+from scp.base import BaseFluid
 
 
 class PropyleneGlycol(BaseFluid):

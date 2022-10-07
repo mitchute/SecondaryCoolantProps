@@ -1,11 +1,11 @@
 from typing import Union
 
-from scp.base_fluid import BaseFluid
+from scp.base import BaseFluid
 
 
 class Water(BaseFluid):
-    def __init__(self, concentration: Union[int, float] = 0) -> None:
-        super().__init__(concentration)
+    def __init__(self, conc: Union[int, float] = 0) -> None:
+        super().__init__(conc)
 
     def viscosity(self, temp: Union[int, float] = 0):
         return BaseFluid._viscosity_water(temp)
