@@ -1,5 +1,5 @@
 from typing import Union
-from math import exp, log10
+
 from scp.base_fluid import BaseFluid
 
 
@@ -7,14 +7,14 @@ class Water(BaseFluid):
     def __init__(self, concentration: Union[int, float] = 0) -> None:
         super().__init__(concentration)
 
-    def viscosity(self, temperature: Union[int, float] = 0):
-        return BaseFluid._viscosity_water(temperature)
+    def viscosity(self, temp: Union[int, float] = 0):
+        return BaseFluid._viscosity_water(temp)
 
-    def specific_heat(self, temperature: Union[int, float] = 0):
+    def specific_heat(self, temp: Union[int, float] = 0):
         pass
 
-    def conductivity(self, temperature: Union[int, float] = 0):
+    def conductivity(self, temp: Union[int, float] = 0):
         pass
 
-    def density(self, temperature: Union[int, float] = 0):
+    def density(self, temp: Union[int, float] = 0):
         pass

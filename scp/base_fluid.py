@@ -4,8 +4,8 @@ from warnings import WarningMessage
 
 
 class BaseFluid(ABC):
-    def __init__(self, concentration: Union[int, float] = 0.0) -> None:
-        self.c = concentration
+    def __init__(self, conc: Union[int, float] = 0.0) -> None:
+        self.c = conc
         self.c_min = 0.0
         self.c_max = 100.0
         self.temp_min = 0.0
@@ -16,43 +16,47 @@ class BaseFluid(ABC):
         self.c_max = c_max
 
     def _check_concentration(
-        self, concentration: Union[int, float], fluid_name: str
+        self, conc: Union[int, float], fl_name: str
     ) -> Union[int, float]:
-        if concentration < self.c_min:
-            msg = f'Fluid "{fluid_name}", concentration must be greater than {self.c_min:0.2f}\n'
+        if conc < self.c_min:
+            msg = f'Fluid "{fl_name}", concentration must be greater than {self.c_min:0.2f}\n'
             msg += f"Resetting concentration to {self.c_min:0.2f}"
             UserWarning(msg)
             return self.c_min
-        elif concentration > self.c_max:
-            msg = f'Fluid "{fluid_name}", concentration must be less than {self.c_max:0.2f}'
+        elif conc > self.c_max:
+            msg = (
+                f'Fluid "{fl_name}", concentration must be less than {self.c_max:0.2f}'
+            )
             msg += f"Resetting concentration to {self.c_max:0.2f}"
             UserWarning(msg)
             return self.c_max
         else:
-            return concentration
+            return conc
 
     def _set_temperature_limits(self, temp_min, temp_max) -> None:
         self.temp_min = temp_min
         self.temp_max = temp_max
 
     def _check_temperature(
-        self, temperature: Union[int, float], fluid_name: str
+        self, temp: Union[int, float], fl_name: str
     ) -> Union[int, float]:
-        if temperature < self.c_min:
-            msg = f'Fluid "{fluid_name}", temperature must be greater than {self.temp_min:0.2f}'
+        if temp < self.c_min:
+            msg = f'Fluid "{fl_name}", temperature must be greater than {self.temp_min:0.2f}'
             msg += f"Resetting temperature to {self.temp_min:0.2f}"
             UserWarning(msg)
             return self.c_min
-        elif temperature > self.c_max:
-            msg = f'Fluid "{fluid_name}", temperature must be less than {self.temp_max:0.2f}'
+        elif temp > self.c_max:
+            msg = (
+                f'Fluid "{fl_name}", temperature must be less than {self.temp_max:0.2f}'
+            )
             msg += f"Resetting temperature to {self.temp_max:0.2f}"
             UserWarning(msg)
             return self.temp_max
         else:
-            return temperature
+            return temp
 
     @staticmethod
-    def _viscosity_water(temperature: Union[int, float]):
+    def _viscosity_water(temp: Union[int, float]):
 
         AM0 = -3.30233
         AM1 = 1301
@@ -68,71 +72,55 @@ class BaseFluid(ABC):
         A12 = 2.1249e-05
         A13 = -2.69575e-08
 
-        if temperature < 20:
+        if temp < 20:
             return (
-                10
-                ** (
-                    AM0
-                    + AM1
-                    / (AM2 + (temperature - 20) * (AM3 + AM4 * (temperature - 20)))
-                )
+                10 ** (AM0 + AM1 / (AM2 + (temp - 20) * (AM3 + AM4 * (temp - 20))))
                 * 100
             ) * 0.001
 
-        if temperature > 100:
-            return (
-                A10
-                + temperature * A11
-                + (temperature**2) * A12
-                + (temperature**3) * A13
-            ) * 0.001
+        if temp > 100:
+            return (A10 + temp * A11 + (temp**2) * A12 + (temp**3) * A13) * 0.001
 
         return (
-            AM5
-            * 10
-            ** (
-                (temperature - 20)
-                * (AM6 + (temperature - 20) * AM7)
-                / (temperature + AM8)
-            )
+            AM5 * 10 ** ((temp - 20) * (AM6 + (temp - 20) * AM7) / (temp + AM8))
         ) * 0.001
 
     @abstractmethod
-    def viscosity(self, temperature: Union[int, float] = 0.0):
+    def viscosity(self, temp: Union[int, float] = 0.0):
         pass
 
-    def mu(self, temperature: Union[int, float] = 0.0):
-        return self.viscosity(temperature)
+    def mu(self, temp: Union[int, float] = 0.0):
+        return self.viscosity(temp)
 
     @abstractmethod
-    def specific_heat(self, temperature: Union[int, float] = 0.0):
+    def specific_heat(self, temp: Union[int, float] = 0.0):
         pass
 
-    def cp(self, temperature: Union[int, float] = 0.0):
-        return self.specific_heat(temperature)
+    def cp(self, temp: Union[int, float] = 0.0):
+        return self.specific_heat(temp)
 
     @abstractmethod
-    def density(self, temperature: Union[int, float] = 0.0):
+    def density(self, temp: Union[int, float] = 0.0):
         pass
 
-    def rho(self, temperature: Union[int, float] = 0.0):
-        return self.density(temperature)
+    def rho(self, temp: Union[int, float] = 0.0):
+        return self.density(temp)
 
     @abstractmethod
-    def conductivity(self, temperature: Union[int, float] = 0.0):
+    def conductivity(self, temp: Union[int, float] = 0.0):
         pass
 
-    def k(self, temperature: Union[int, float] = 0.0):
-        return self.conductivity(temperature)
+    def k(self, temp: Union[int, float] = 0.0):
+        return self.conductivity(temp)
 
-    def prandtl(self, temperature: Union[int, float] = 0.0):
-        return self.cp(temperature) * self.mu(temperature) / self.k(temperature)
+    def prandtl(self, temp: Union[int, float] = 0.0):
+        return self.cp(temp) * self.mu(temp) / self.k(temp)
 
-    def pr(self, temperature: Union[int, float] = 0.0):
-        return self.prandtl(temperature)
+    def pr(self, temp: Union[int, float] = 0.0):
+        return self.prandtl(temp)
 
-    def thermal_diffusivity(self, temperature: Union[int, float] = 0.0):
-        self.k(temperature) / (self.rho(temperature) * self.cp(temperature))
+    def thermal_diffusivity(self, temp: Union[int, float] = 0.0):
+        self.k(temp) / (self.rho(temp) * self.cp(temp))
 
-    def alpha(self, temperature: Union[int, float] = 0.0):
-        return self.thermal_diffusivity(temperature)
+    def alpha(self, temp: Union[int, float] = 0.0):
+        return self.thermal_diffusivity(temp)
