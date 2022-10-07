@@ -51,7 +51,7 @@ class BaseFluid(ABC):
             UserWarning(msg)
             return self.c_min
         elif conc > self.c_max:
-            msg = f'Fluid "{n}", concentration must be less than {self.c_max:0.2f}'
+            msg = f'Fluid "{n}", concentration must be less than {self.c_max:0.2f}\n'
             msg += f"Resetting concentration to {self.c_max:0.2f}"
             UserWarning(msg)
             return self.c_max
@@ -76,14 +76,12 @@ class BaseFluid(ABC):
         """
         fl_name = self.fluid_name()
         if temp < self.c_min:
-            msg = f'Fluid "{fl_name}", temperature must be greater than {self.temp_min:0.2f}'
+            msg = f'Fluid "{fl_name}", temperature must be greater than {self.temp_min:0.2f}\n'
             msg += f"Resetting temperature to {self.temp_min:0.2f}"
             UserWarning(msg)
             return self.c_min
         elif temp > self.c_max:
-            msg = (
-                f'Fluid "{fl_name}", temperature must be less than {self.temp_max:0.2f}'
-            )
+            msg = f'Fluid "{fl_name}", temperature must be less than {self.temp_max:0.2f}\n'
             msg += f"Resetting temperature to {self.temp_max:0.2f}"
             UserWarning(msg)
             return self.temp_max
