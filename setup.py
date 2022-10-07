@@ -7,7 +7,7 @@ readme_contents = readme_file.read_text()
 
 setup(
     name="SecondaryCoolantProps",
-    version="0.1",
+    version="0.2",
     packages=['scp'],
     description="A collection of secondary coolant fluid property functions and classes",
     long_description=readme_contents,
