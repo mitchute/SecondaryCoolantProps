@@ -10,7 +10,9 @@ Welcome to GHEDesigner's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   ghe
+   fluid_base
+   fluid_water
+   fluid_propylene
 
 
 Indices and tables

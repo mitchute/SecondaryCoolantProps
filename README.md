@@ -1,26 +1,28 @@
-# GHE Designer (Scaffold Repo)
+# Secondary Coolant Props
 
-This repo is a starting point for developing a GHE model repo, but really, it's just a scaffold for a Python library I guess.
+This repo contains some fluid property routines for secondary coolants.
+This is intended to be a very lightweight library that can be imported into any other Python tool very easily, with no bulky dependencies.
 
 ## Code Quality
 
-[![Flake8](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/flake8.yml/badge.svg)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/flake8.yml)
-[![Tests](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/test.yml/badge.svg)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/test.yml)
+[![Flake8](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/flake8.yml/badge.svg)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/flake8.yml)
+[![Tests](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/test.yml/badge.svg)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/test.yml)
 
 Code is checked for style and with unit tests by GitHub Actions using nosetests to sniff out the tests.
 
 ## Documentation
 
-[![Sphinx docs to gh-pages](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/docs.yml/badge.svg)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/docs.yml)
+[![Sphinx docs to gh-pages](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/docs.yml/badge.svg)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/docs.yml)
+[![gh-pages](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/pages/pages-build-deployment)
 
-[![gh-pages](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/pages/pages-build-deployment)
-
-Docs are built from Sphinx by GitHub Actions and followed up with a deployment to GH-Pages using Actions, available at https://myoldmopar.github.io/ghe-scaffold/
+Docs are built from Sphinx by GitHub Actions and followed up with a deployment to GH-Pages using Actions, available at https://mitchute.github.io/SecondaryCoolantProps/
 
 ## Releases
 
-[![PyPIRelease](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/release.yml/badge.svg)](https://github.com/Myoldmopar/ghe-scaffold/actions/workflows/release.yml)
+[![PyPIRelease](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/release.yml/badge.svg)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/release.yml)
 
 When a release is tagged, a GitHub Action workflow will create a Python wheel and upload it to the TestPyPi server.
 
-To install into an existing Python environment, execute `pip install -i https://test.pypi.org/simple/ GHE-Designer-Scaffold`
+To install into an existing Python environment, execute `pip install -i https://test.pypi.org/simple/ SecondaryCoolantProps`
+
+Once things have stabilized, the releases will be pushed to the main PyPi server.
