@@ -25,4 +25,6 @@ When a release is tagged, a GitHub Action workflow will create a Python wheel an
 
 To install into an existing Python environment, execute `pip install -i https://test.pypi.org/simple/ SecondaryCoolantProps`
 
+Project page on TestPyPi: https://test.pypi.org/project/SecondaryCoolantProps/
+
 Once things have stabilized, the releases will be pushed to the main PyPi server.
