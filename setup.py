@@ -7,8 +7,8 @@ readme_contents = readme_file.read_text()
 
 setup(
     name="GHE Designer Scaffold",
-    version="0.3",
-    packages=['ghe'],
+    version="0.1",
+    packages=['scp'],
     description="A collection of GHE functions and design tools",
     long_description=readme_contents,
     long_description_content_type='text/markdown',
@@ -17,6 +17,6 @@ setup(
     url='https://github.com/Myoldmopar/ghe-scaffold',
     license='Something',
     entry_points={
-        'console_scripts': ['ghe_cli=ghe.main:main_cli']
+        'console_scripts': ['scp_cli=scp.main:main_cli']
     }
 )

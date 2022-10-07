@@ -1,4 +1,3 @@
-
-# for building documentation
-sphinx
+black
 nose
+sphinx
