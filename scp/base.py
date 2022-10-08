@@ -88,52 +88,22 @@ class BaseFluid(ABC):
         else:
             return temp
 
-    @staticmethod
-    def _viscosity_water(temp: float) -> float:
-        """
-        Returns the viscosity of water.  This is currently used in other fluid
-        property routines, so it lives here in the base class.  Ideally, it would
-        live in the water derived class and only be used there.
-        :param temp: Fluid temperature in degrees Celsius
-        :return: The (SOMETHING) viscosity of water in (UNITS)
-        """
-        am0 = -3.30233
-        am1 = 1301
-        am2 = 998.333
-        am3 = 8.1855
-        am4 = 0.00585
-        am5 = 1.002
-        am6 = -1.3272
-        am7 = -0.001053
-        am8 = 105
-        am10 = 0.68714
-        am11 = -0.0059231
-        am12 = 2.1249e-05
-        am13 = -2.69575e-08
-        if temp < 20:
-            exponent = (am0 + am1 / (am2 + (temp - 20) * (am3 + am4 * (temp - 20))))
-            return (10 ** exponent) * 0.1
-        if temp > 100:
-            return (am10 + temp * am11 + (temp ** 2) * am12 + (temp ** 3) * am13) * 0.001
-        return (
-                       am5 * 10 ** ((temp - 20) * (am6 + (temp - 20) * am7) / (temp + am8))
-               ) * 0.001
-
     @abstractmethod
     def viscosity(self, temp: float) -> float:
         """
-        Abstract method; derived classes should override to return the (SOMETHING)
+        Abstract method; derived classes should override to return the dynamic
         viscosity of that fluid.
+
         :param temp: Fluid temperature, in degrees Celsius
-        :return: Returns the (SOMETHING) viscosity in (UNITS)
+        :return: Returns the dynamic viscosity in [Pa s]
         """
         pass
 
     def mu(self, temp: float) -> float:
         """
-        Convenience function for returning the (SOMETHING) viscosity by the common letter 'mu'
+        Convenience function for returning the dynamic viscosity by the common letter 'mu'
         :param temp: Fluid temperature, in degrees Celsius
-        :return: Returns the (SOMETHING) viscosity -- which one is mu? in (UNITS)
+        :return: Returns the dynamic viscosity -- which one is mu in [Pa s]
         """
         return self.viscosity(temp)
 
@@ -142,6 +112,7 @@ class BaseFluid(ABC):
         """
         Abstract method; derived classes should override to return the specific heat
         of that fluid.
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the specific heat in J/kg-K
         """
@@ -150,6 +121,7 @@ class BaseFluid(ABC):
     def cp(self, temp: float) -> float:
         """
         Convenience function for returning the specific heat by the common shorthand 'cp'
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the specific heat in J/kg-K
         """
@@ -160,6 +132,7 @@ class BaseFluid(ABC):
         """
         Abstract method; derived classes should override to return the density
         of that fluid.
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the density in kg/m3
         """
@@ -168,6 +141,7 @@ class BaseFluid(ABC):
     def rho(self, temp: float) -> float:
         """
         Convenience function for returning the density by the common shorthand 'rho'
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the density, in kg/m3
         """
@@ -178,6 +152,7 @@ class BaseFluid(ABC):
         """
         Abstract method; derived classes should override to return the thermal
         conductivity of that fluid.
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the thermal conductivity in W/m-K
         """
@@ -186,6 +161,7 @@ class BaseFluid(ABC):
     def k(self, temp: float) -> float:
         """
         Convenience function for returning the thermal conductivity by the common shorthand 'k'
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the thermal conductivity, in W/m-K
         """
@@ -194,6 +170,7 @@ class BaseFluid(ABC):
     def prandtl(self, temp: float) -> float:
         """
         Returns the Prandtl number for this fluid
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the dimensionless Prandtl number
         """
@@ -202,6 +179,7 @@ class BaseFluid(ABC):
     def pr(self, temp: float = 0.0) -> float:
         """
         Convenience function for returning the Prandtl number by the common shorthand 'pr'
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the dimensionless Prandtl number
         """
@@ -210,6 +188,7 @@ class BaseFluid(ABC):
     def thermal_diffusivity(self, temp: float) -> float:
         """
         Returns the thermal diffusivity for this fluid
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the thermal diffusivity in m2/s
         """
@@ -218,6 +197,7 @@ class BaseFluid(ABC):
     def alpha(self, temp: float) -> float:
         """
         Convenience function for returning the thermal diffusivity by the common shorthand 'alpha'
+
         :param temp: Fluid temperature, in degrees Celsius
         :return: Returns the thermal diffusivity in m2/s
         """

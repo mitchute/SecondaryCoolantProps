@@ -1,6 +1,7 @@
 from math import exp, log10
 
 from scp.base import BaseFluid
+from scp.water import Water
 
 
 class PropyleneGlycol(BaseFluid):
@@ -49,12 +50,12 @@ class PropyleneGlycol(BaseFluid):
 
         if self.c == 0.0:
             # TODO: Will the formulation below not resolve to water as c goes to zero?
-            return BaseFluid._viscosity_water(temp)
+            return Water.viscosity(temp)
 
         c_g = (0.0009035 * self.c ** 2 + 0.9527607 * self.c - 0.0009811) / 100
         c_w = abs(1 - c_g)
         mu = exp(
-            c_w * log10(BaseFluid._viscosity_water(temp))
+            c_w * log10(Water.viscosity(temp))
             + c_g * log10(PropyleneGlycol._viscosity_pg(temp))
             + a3 * (125 - temp)
             ** a4 * c_w * c_g + log10(1 + ((c_g * c_w) / (a1 * c_w ** 2 + a2 * c_g ** 2)))
