@@ -13,7 +13,7 @@ class Water(BaseFluid):
         """
         Returns the fluid name for this derived fluid.
 
-        :return: "Water"
+        @return: "Water"
         """
         return "Water"
 
@@ -21,8 +21,8 @@ class Water(BaseFluid):
         """
         Returns the viscosity of water.
 
-        :param temp: Fluid temperature, in degrees Celsius
-        :return: The dynamic viscosity of water in [Pa s]
+        @param temp: Fluid temperature, in degrees Celsius
+        @return: The dynamic viscosity of water in [Pa s]
         """
 
         self._check_temperature(temp)
@@ -51,8 +51,8 @@ class Water(BaseFluid):
         """
         Returns the fluid specific heat for this derived fluid.
 
-        :param temp: Fluid temperature, in degrees Celsius
-        :return: Specific heat, in J/kg-K ???
+        @param temp: Fluid temperature, in degrees Celsius
+        @return: Specific heat, in J/kg-K ???
         """
 
         self._check_temperature(temp)
@@ -63,8 +63,8 @@ class Water(BaseFluid):
         """
         Returns the fluid thermal conductivity for this derived fluid.
 
-        :param temp: Fluid temperature, in degrees Celsius
-        :return: Thermal conductivity, in W/m-K ???
+        @param temp: Fluid temperature, in degrees Celsius
+        @return: Thermal conductivity, in W/m-K ???
         """
 
         self._check_temperature(temp)
@@ -75,8 +75,8 @@ class Water(BaseFluid):
         """
         Returns the fluid density for this derived fluid.
 
-        :param temp: Fluid temperature, in degrees Celsius
-        :return: Density, in kg/m3 ???
+        @param temp: Fluid temperature, in degrees Celsius
+        @return: Density, in kg/m3 ???
         """
 
         self._check_temperature(temp)
