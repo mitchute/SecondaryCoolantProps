@@ -21,6 +21,7 @@ class BaseFluid(ABC):
         self.temp_min = 0.0
         self.temp_max = 100.0
 
+    @property
     @abstractmethod
     def fluid_name(self) -> str:
         """
@@ -49,7 +50,7 @@ class BaseFluid(ABC):
         @return: A validated concentration value, pulled to within limits
         """
 
-        n = self.fluid_name()
+        n = self.fluid_name
         if conc < self.c_min:
             msg = f'Fluid "{n}", concentration must be greater than {self.c_min:0.2f}\n'
             msg += f"Resetting concentration to {self.c_min:0.2f}"
@@ -81,7 +82,7 @@ class BaseFluid(ABC):
         @param temp: The temperature to check, in degrees Celsius
         @return: A validated temperature value, in degrees Celsius
         """
-        fl_name = self.fluid_name()
+        fl_name = self.fluid_name
         if temp < self.c_min:
             msg = f'Fluid "{fl_name}", temperature must be greater than {self.temp_min:0.2f}\n'
             msg += f"Resetting temperature to {self.temp_min:0.2f}"
@@ -102,7 +103,7 @@ class BaseFluid(ABC):
         viscosity of that fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the dynamic viscosity in [Pa s]
+        @return: Returns the dynamic viscosity in [Pa-s]
         """
         pass
 
@@ -111,7 +112,7 @@ class BaseFluid(ABC):
         Convenience function for returning the dynamic viscosity by the common letter 'mu'
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the dynamic viscosity -- which one is mu in [Pa s]
+        @return: Returns the dynamic viscosity -- which one is mu in [Pa-s]
         """
         return self.viscosity(temp)
 
@@ -122,7 +123,7 @@ class BaseFluid(ABC):
         of that fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the specific heat in J/kg-K
+        @return: Returns the specific heat in [J/kg-K]
         """
         pass
 
@@ -131,7 +132,7 @@ class BaseFluid(ABC):
         Convenience function for returning the specific heat by the common shorthand 'cp'
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the specific heat in J/kg-K
+        @return: Returns the specific heat in [J/kg-K]
         """
         return self.specific_heat(temp)
 
@@ -142,7 +143,7 @@ class BaseFluid(ABC):
         of that fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the density in kg/m3
+        @return: Returns the density in [kg/m3]
         """
         pass
 
@@ -151,7 +152,7 @@ class BaseFluid(ABC):
         Convenience function for returning the density by the common shorthand 'rho'
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the density, in kg/m3
+        @return: Returns the density, in [kg/m3]
         """
         return self.density(temp)
 
@@ -162,7 +163,7 @@ class BaseFluid(ABC):
         conductivity of that fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the thermal conductivity in W/m-K
+        @return: Returns the thermal conductivity in [W/m-K]
         """
         pass
 
@@ -171,7 +172,7 @@ class BaseFluid(ABC):
         Convenience function for returning the thermal conductivity by the common shorthand 'k'
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the thermal conductivity, in W/m-K
+        @return: Returns the thermal conductivity, in [W/m-K]
         """
         return self.conductivity(temp)
 
@@ -198,7 +199,7 @@ class BaseFluid(ABC):
         Returns the thermal diffusivity for this fluid
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the thermal diffusivity in m2/s
+        @return: Returns the thermal diffusivity in [m2/s]
         """
         return self.k(temp) / (self.rho(temp) * self.cp(temp))
 
@@ -207,6 +208,6 @@ class BaseFluid(ABC):
         Convenience function for returning the thermal diffusivity by the common shorthand 'alpha'
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Returns the thermal diffusivity in m2/s
+        @return: Returns the thermal diffusivity in [m2/s]
         """
         return self.thermal_diffusivity(temp)

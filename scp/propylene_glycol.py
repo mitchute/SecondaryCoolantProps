@@ -17,11 +17,12 @@ class PropyleneGlycol(BaseFluid):
         @param concentration: Glycol concentration, from 0.0 to 100.0
         """
         super().__init__(concentration)
+        self.water = Water()
 
     def fluid_name(self) -> str:
         """
         Returns a descriptive title for this fluid
-        @return: Fluid name
+        @return: "PropyleneGlycol"
         """
         return "PropyleneGlycol"
 
@@ -57,13 +58,13 @@ class PropyleneGlycol(BaseFluid):
 
         if self.c == 0.0:
             # TODO: Will the formulation below not resolve to water as c goes to zero?
-            return Water.viscosity(temp)
+            return self.water.viscosity(temp)
 
         c_g = (0.0009035 * self.c ** 2 + 0.9527607 * self.c - 0.0009811) / 100
         c_w = abs(1 - c_g)
         mu = exp(
-            c_w * log10(Water.viscosity(temp))
-            + c_g * log10(PropyleneGlycol._viscosity_pg(temp))
+            c_w * log10(self.water.viscosity(temp))
+            + c_g * log10(self._viscosity_pg(temp))
             + a3 * (125 - temp)
             ** a4 * c_w * c_g + log10(1 + ((c_g * c_w) / (a1 * c_w ** 2 + a2 * c_g ** 2)))
         )

@@ -12,7 +12,6 @@ class Water(BaseFluid):
     def fluid_name(self) -> str:
         """
         Returns the fluid name for this derived fluid.
-
         @return: "Water"
         """
         return "Water"
@@ -22,7 +21,7 @@ class Water(BaseFluid):
         Returns the viscosity of water.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: The dynamic viscosity of water in [Pa s]
+        @return: The dynamic viscosity of water in [Pa-s]
         """
 
         self._check_temperature(temp)
@@ -52,33 +51,54 @@ class Water(BaseFluid):
         Returns the fluid specific heat for this derived fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Specific heat, in J/kg-K ???
+        @return: Specific heat, in [J/kg-K]
         """
 
         self._check_temperature(temp)
 
-        return -999.0
+        acp0 = 4.21534
+        acp1 = -0.00287819
+        acp2 = 7.4729E-05
+        acp3 = -7.79624E-07
+        acp4 = 3.220424E-09
+
+        return (acp0 + temp * acp1 + (temp ** 2) * acp2 + (temp ** 3) * acp3 + (temp ** 4) * acp4) * 1000
 
     def conductivity(self, temp: float) -> float:
         """
         Returns the fluid thermal conductivity for this derived fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Thermal conductivity, in W/m-K ???
+        @return: Thermal conductivity, in [W/m-K]
         """
 
         self._check_temperature(temp)
 
-        return -999.0
+        ak0 = 0.560101
+        ak1 = 0.00211703
+        ak2 = -1.05172E-05
+        ak3 = 1.497323E-08
+        ak4 = -1.48553E-11
+
+        return ak0 + temp * ak1 + (temp ** 2) * ak2 + (temp ** 3) * ak3 + (temp ** 4) * ak4
 
     def density(self, temp: float) -> float:
         """
         Returns the fluid density for this derived fluid.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Density, in kg/m3 ???
+        @return: Density, in [kg/m3]
         """
 
         self._check_temperature(temp)
 
-        return -999.0
+        ar0 = 999.83952
+        ar1 = 16.945176
+        ar2 = -0.0079870401
+        ar3 = -4.6170461E-05
+        ar4 = 1.0556302E-07
+        ar5 = -2.8054253E-10
+        ar6 = 0.01687985
+
+        return (ar0 + temp * ar1 + (temp ** 2) * ar2 + (temp ** 3) * ar3 + (temp ** 4) * ar4 + (temp ** 5) * ar5) / (
+                1 + ar6 * temp)

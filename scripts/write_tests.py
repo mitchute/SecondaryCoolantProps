@@ -6,7 +6,7 @@ props = {
     'V': 'viscosity',
     'C': 'specific_heat',
     'D': 'density',
-    'K': 'thermal_conductivity'
+    'L': 'conductivity'
 }
 
 
@@ -30,5 +30,4 @@ def write(fluid, property, test_cases):
 if __name__ == "__main__":
     temp_range = [1, 5, 10, 25, 50, 75, 90, 95, 99]
     conc_range = [0]
-    write('water', 'V', product(temp_range))
-
+    write('water', 'L', product(temp_range))
