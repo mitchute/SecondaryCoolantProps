@@ -1,4 +1,4 @@
-from math import exp, log10
+from math import exp, log
 
 from scp.base import BaseFluid
 from scp.water import Water
@@ -18,6 +18,7 @@ class PropyleneGlycol(BaseFluid):
         """
         super().__init__(concentration)
         self.water = Water()
+        self._set_concentration_limits(0.0, 0.6)
 
     def fluid_name(self) -> str:
         """
@@ -38,12 +39,14 @@ class PropyleneGlycol(BaseFluid):
         self._check_temperature(temp)
 
         return (
-                   exp(-293.07 + (17494 / (temp + 273.15)) + 40.576 * log10((temp + 273.15)))
-               ) * 1000.0
+            exp(-293.07 + (17494 / (temp + 273.15)) + 40.576 * log((temp + 273.15)))
+        ) * 1000.0
 
     def viscosity(self, temp: float) -> float:
         """
         Calculate the dynamic viscosity of this Propylene Glycol mixture.
+
+        Viscosity equations for water at 1 atm., from CRC Handbook (op.cit.), page F-51.
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Dynamic viscosity, in N/m2-s, or Pa-s
@@ -51,26 +54,23 @@ class PropyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        a1 = 24311949006
-        a2 = 24311949006
-        a3 = 1.4e-09
-        a4 = 0
+        b = 24311949006
+        c = 24311949006
+        d = 1.4e-09
+        e = 0
 
-        if self.c == 0.0:
-            # TODO: Will the formulation below not resolve to water as c goes to zero?
-            return self.water.viscosity(temp)
+        c_100 = self.c * 100
 
-        c_g = (0.0009035 * self.c ** 2 + 0.9527607 * self.c - 0.0009811) / 100
+        c_g = (0.0009035 * c_100**2 + 0.9527607 * c_100 - 0.0009811) / 100.0
         c_w = abs(1 - c_g)
         mu = exp(
-            c_w * log10(self.water.viscosity(temp))
-            + c_g * log10(self._viscosity_pg(temp))
-            + a3 * (125 - temp)
-            ** a4 * c_w * c_g + log10(1 + ((c_g * c_w) / (a1 * c_w ** 2 + a2 * c_g ** 2)))
+            c_w * log(self.water.mu(temp))
+            + c_g * log(self._viscosity_pg(temp))
+            + d * (125 - temp) ** e * c_w * c_g
+            + log(1 + ((c_g * c_w) / (b * c_w**2 + c * c_g**2)))
         )
 
-        # convert mPa.S to Pa.S
-        return mu * 0.001
+        return mu
 
     def specific_heat(self, temp: float) -> float:
         """

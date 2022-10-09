@@ -48,7 +48,10 @@ class Water(BaseFluid):
 
     def specific_heat(self, temp: float) -> float:
         """
-        Returns the fluid specific heat for this derived fluid.
+        Returns the fluid specific heat.
+
+        Specific heat of water at 1 atmosphere, 0 to 100 C.  Equation from linear least-squares
+        regression of data from CRC Handbook (op.cit.) page D-174
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Specific heat, in [J/kg-K]
@@ -68,6 +71,8 @@ class Water(BaseFluid):
         """
         Returns the fluid thermal conductivity for this derived fluid.
 
+        Thermal conductivity equation from linear least-squares fit to data in CRC Handbook (op.cit.), page E-11
+
         @param temp: Fluid temperature, in degrees Celsius
         @return: Thermal conductivity, in [W/m-K]
         """
@@ -85,6 +90,8 @@ class Water(BaseFluid):
     def density(self, temp: float) -> float:
         """
         Returns the fluid density for this derived fluid.
+
+        Density eq. for water at 1 atm., from CRC Handbook of Chem. & Phys., 61st Edition (1980-1981), p. F-6.
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Density, in [kg/m3]
