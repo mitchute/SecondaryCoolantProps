@@ -38,9 +38,7 @@ class PropyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return (
-            exp(-293.07 + (17494 / (temp + 273.15)) + 40.576 * log((temp + 273.15)))
-        ) * 1000.0
+        return exp(-293.07 + (17494 / (temp + 273.15)) + 40.576 * log((temp + 273.15)))
 
     def viscosity(self, temp: float) -> float:
         """
@@ -61,14 +59,15 @@ class PropyleneGlycol(BaseFluid):
 
         c_100 = self.c * 100
 
-        c_g = (0.0009035 * c_100**2 + 0.9527607 * c_100 - 0.0009811) / 100.0
+        c_g = (0.0009035 * c_100 ** 2 + 0.9527607 * c_100 - 0.0009811) / 100.0
         c_w = abs(1 - c_g)
-        mu = exp(
-            c_w * log(self.water.mu(temp))
-            + c_g * log(self._viscosity_pg(temp))
-            + d * (125 - temp) ** e * c_w * c_g
-            + log(1 + ((c_g * c_w) / (b * c_w**2 + c * c_g**2)))
-        )
+        mu_w = self.water.mu(temp) * 1000  # Convert to Centipoise
+        mu_pg = self._viscosity_pg(temp) * 1000  # convert to Centipoise
+        t1 = c_w * log(mu_w)
+        t2 = c_g * log(mu_pg)
+        t3 = d * (125 - temp) ** e * c_w * c_g
+        t4 = log(1 + ((c_g * c_w) / (b * c_w ** 2 + c * c_g ** 2)))
+        mu = exp(t1 + t2 + t3 + t4) / 1000
 
         return mu
 
