@@ -4,14 +4,14 @@ from scp.base import BaseFluid
 from scp.water import Water
 
 
-class PropyleneGlycol(BaseFluid):
+class EthyleneGlycol(BaseFluid):
     """
-    A derived fluid class for propylene glycol and water mixtures
+    A derived fluid class for ethylene glycol and water mixtures
     """
 
     def __init__(self, concentration: float) -> None:
         """
-        Constructor for a propylene glycol mixture instance, taking the amount of concentration
+        Constructor for a ethylene glycol mixture instance, taking the amount of concentration
         as the only argument
 
         @param concentration: Glycol concentration, from 0.0 to 100.0
@@ -23,13 +23,13 @@ class PropyleneGlycol(BaseFluid):
     def fluid_name(self) -> str:
         """
         Returns a descriptive title for this fluid
-        @return: "PropyleneGlycol"
+        @return: "EthyleneGlycol"
         """
-        return "PropyleneGlycol"
+        return "EthyleneGlycol"
 
     def _viscosity_self(self, temp: float) -> float:
         """
-        Internal worker function that can give the viscosity of pure propylene glycol.
+        Internal worker function that can give the viscosity of pure ethylene glycol.
         These doc strings should have citations I think.
 
         @param temp: Fluid temperature, in degrees Celsius
@@ -38,11 +38,11 @@ class PropyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return exp(-293.07 + (17494 / (temp + 273.15)) + 40.576 * log((temp + 273.15)))
+        return exp(-16.548 + (3022.7 / (temp + 273.15)) + 0.08248 * log((temp + 273.15)))
 
     def viscosity(self, temp: float) -> float:
         """
-        Calculate the dynamic viscosity of this Propylene Glycol mixture.
+        Calculate the dynamic viscosity of this Ethylene Glycol mixture.
 
         Viscosity equations for water at 1 atm., from CRC Handbook (op.cit.), page F-51.
 
@@ -52,14 +52,14 @@ class PropyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        b = 24311949006
-        c = 24311949006
-        d = 1.4e-09
-        e = 0
+        b = 2.217684747
+        c = 0.006652075
+        d = 1.53602E-05
+        e = 2.180722899
 
         c_100 = self.c * 100
 
-        c_g = (0.0009035 * c_100 ** 2 + 0.9527607 * c_100 - 0.0009811) / 100.0
+        c_g = (0.00137599 * c_100 ** 2 + 0.8828875 * c_100 - 0.02004811) / 100.0
         c_w = abs(1 - c_g)
         mu_w = self.water.mu(temp) * 1000  # Convert to Centipoise
         mu_pg = self._viscosity_self(temp) * 1000  # convert to Centipoise
@@ -85,7 +85,7 @@ class PropyleneGlycol(BaseFluid):
 
     def conductivity(self, temp: float) -> float:
         """
-        Calculates the thermal conductivity of this Propylene Glycol mixture.
+        Calculates the thermal conductivity of this Ethylene Glycol mixture.
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Thermal conductivity, in W/m-K
@@ -97,7 +97,7 @@ class PropyleneGlycol(BaseFluid):
 
     def density(self, temp: float) -> float:
         """
-        Calculates the density of this Propylene Glycol mixture.
+        Calculates the density of this Ethylene Glycol mixture.
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Density, in kg/m3

@@ -37,4 +37,6 @@ if __name__ == "__main__":
     # write('Water', 'L', product(temp_range), 0.01)
     # write('INCOMP::MPG', 'V', product(temp_range, [0.0]), 0.02)
     # write('INCOMP::MPG', 'V', product(temp_range, [0.2]), 0.08)
-    write('INCOMP::MPG', 'V', product(temp_range, [0.4]), 0.1)
+    # write('INCOMP::MPG', 'V', product(temp_range, [0.4]), 0.15)
+    # write('INCOMP::MEG', 'V', product(temp_range, [0.0]), 0.02)
+    write('INCOMP::MEG', 'V', product(temp_range, [0.2]), 0.15)
