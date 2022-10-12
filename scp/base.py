@@ -12,7 +12,7 @@ class BaseFluid(ABC):
         Derived classes can decide how to handle the concentration argument and
         their own constructor interface as needed to construct and manage that
         specific derived class.
-        
+
         @param conc: Concentration, in percent, from 0 to 100
         """
         self.c = conc
