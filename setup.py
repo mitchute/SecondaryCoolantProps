@@ -7,16 +7,13 @@ readme_contents = readme_file.read_text()
 
 setup(
     name="SecondaryCoolantProps",
-    version="0.2",
+    version="0.3",
     packages=['scp'],
     description="A collection of secondary coolant fluid property functions and classes",
     long_description=readme_contents,
     long_description_content_type='text/markdown',
-    author='People Person',
-    author_email='p@p.p',
+    author='Matt Mitchell',
+    author_email='mitchute@gmail.com',
     url='https://github.com/mitchute/SecondaryCoolantProps',
     license='Something',
-    entry_points={
-        'console_scripts': ['scp_cli=scp.main:main_cli']
-    }
 )
