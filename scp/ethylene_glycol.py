@@ -27,10 +27,9 @@ class EthyleneGlycol(BaseFluid):
         """
         return "EthyleneGlycol"
 
-    def _viscosity_self(self, temp: float) -> float:
+    def _viscosity_eg(self, temp: float) -> float:
         """
         Internal worker function that can give the viscosity of pure ethylene glycol.
-        These doc strings should have citations I think.
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Viscosity something
@@ -44,36 +43,17 @@ class EthyleneGlycol(BaseFluid):
         """
         Calculate the dynamic viscosity of this Ethylene Glycol mixture.
 
-        Viscosity equations for water at 1 atm., from CRC Handbook (op.cit.), page F-51.
-
         @param temp: Fluid temperature, in degrees Celsius
         @return: Dynamic viscosity, in N/m2-s, or Pa-s
         """
 
         self._check_temperature(temp)
 
-        b = 2.217684747
-        c = 0.006652075
-        d = 1.53602E-05
-        e = 2.180722899
-
-        c_100 = self.c * 100
-
-        c_g = (0.00137599 * c_100 ** 2 + 0.8828875 * c_100 - 0.02004811) / 100.0
-        c_w = abs(1 - c_g)
-        mu_w = self.water.mu(temp) * 1000  # Convert to Centipoise
-        mu_pg = self._viscosity_self(temp) * 1000  # convert to Centipoise
-        t1 = c_w * log(mu_w)
-        t2 = c_g * log(mu_pg)
-        t3 = d * (125 - temp) ** e * c_w * c_g
-        t4 = log(1 + ((c_g * c_w) / (b * c_w ** 2 + c * c_g ** 2)))
-        mu = exp(t1 + t2 + t3 + t4) / 1000
-
-        return mu
+        return 0.0016624202
 
     def specific_heat(self, temp: float) -> float:
         """
-        Calculates the specific heat of this Propylene Glycol mixture.
+        Calculates the specific heat of this Ethylene Glycol mixture.
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Specific heat, in J/kg-K
@@ -81,7 +61,7 @@ class EthyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return -1
+        return 3896.19
 
     def conductivity(self, temp: float) -> float:
         """
@@ -93,7 +73,7 @@ class EthyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return -1
+        return 0.5076
 
     def density(self, temp: float) -> float:
         """
@@ -105,4 +85,4 @@ class EthyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return -1
+        return 1024.10

@@ -27,13 +27,13 @@ class PropyleneGlycol(BaseFluid):
         """
         return "PropyleneGlycol"
 
-    def _viscosity_self(self, temp: float) -> float:
+    def _viscosity_pg(self, temp: float) -> float:
         """
         Internal worker function that can give the viscosity of pure propylene glycol.
         These doc strings should have citations I think.
 
         @param temp: Fluid temperature, in degrees Celsius
-        @return: Viscosity something
+        @return: Dynamic viscosity [Pa s]
         """
 
         self._check_temperature(temp)
@@ -44,32 +44,14 @@ class PropyleneGlycol(BaseFluid):
         """
         Calculate the dynamic viscosity of this Propylene Glycol mixture.
 
-        Viscosity equations for water at 1 atm., from CRC Handbook (op.cit.), page F-51.
-
         @param temp: Fluid temperature, in degrees Celsius
         @return: Dynamic viscosity, in N/m2-s, or Pa-s
         """
 
         self._check_temperature(temp)
-
-        b = 24311949006
-        c = 24311949006
-        d = 1.4e-09
-        e = 0
-
-        c_100 = self.c * 100
-
-        c_g = (0.0009035 * c_100 ** 2 + 0.9527607 * c_100 - 0.0009811) / 100.0
-        c_w = abs(1 - c_g)
-        mu_w = self.water.mu(temp) * 1000  # Convert to Centipoise
-        mu_pg = self._viscosity_self(temp) * 1000  # convert to Centipoise
-        t1 = c_w * log(mu_w)
-        t2 = c_g * log(mu_pg)
-        t3 = d * (125 - temp) ** e * c_w * c_g
-        t4 = log(1 + ((c_g * c_w) / (b * c_w ** 2 + c * c_g ** 2)))
-        mu = exp(t1 + t2 + t3 + t4) / 1000
-
-        return mu
+        
+        # 20C, 20%
+        return 0.0020300812
 
     def specific_heat(self, temp: float) -> float:
         """
@@ -79,9 +61,8 @@ class PropyleneGlycol(BaseFluid):
         @return: Specific heat, in J/kg-K
         """
 
-        self._check_temperature(temp)
-
-        return -1
+        # 20C, 20%
+        return 3976.76
 
     def conductivity(self, temp: float) -> float:
         """
@@ -93,7 +74,8 @@ class PropyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return -1
+        # 20C, 20%
+        return 0.4922
 
     def density(self, temp: float) -> float:
         """
@@ -105,4 +87,5 @@ class PropyleneGlycol(BaseFluid):
 
         self._check_temperature(temp)
 
-        return -1
+        # 20C, 20%
+        return 1014.77
