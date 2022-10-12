@@ -49,7 +49,7 @@ class PropyleneGlycol(BaseFluid):
         """
 
         self._check_temperature(temp)
-        
+
         # 20C, 20%
         return 0.0020300812
 

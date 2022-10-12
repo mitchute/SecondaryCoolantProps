@@ -1,5 +1,3 @@
-from itertools import product
-
 from CoolProp.CoolProp import PropsSI
 
 props = {
