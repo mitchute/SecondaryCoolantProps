@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 from scp.base_fluid import BaseFluid
 
 
@@ -14,15 +16,20 @@ class BaseMelinder(BaseFluid):
 
     def __init__(self, conc: float, c_min: float, c_max: float, t_min: float, t_max: float):
         super().__init__(conc, c_min, c_max, t_min, t_max)
-        self.xm = 30.8462
-        self.ym = 31.728
+        self.c_base = None
+        self.t_base = None
+        self.freeze_point = None
+
+    @abstractmethod
+    def calc_freeze_point(self, conc: float):
+        pass
 
     def _f_prop(self, c_arr, temp):
 
         temp = self._check_temperature(temp)
 
-        xxm = self.c - self.xm
-        yym = temp - self.ym
+        xxm = self.c - self.c_base
+        yym = temp - self.t_base
         x_xm = [xxm ** p for p in range(6)]
         y_ym = [yym ** p for p in range(4)]
 

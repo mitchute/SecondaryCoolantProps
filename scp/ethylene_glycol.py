@@ -1,5 +1,4 @@
 from scp.base_melinder import BaseMelinder
-from scp.water import Water
 
 
 class EthyleneGlycol(BaseMelinder):
@@ -9,23 +8,24 @@ class EthyleneGlycol(BaseMelinder):
 
     def __init__(self, concentration: float) -> None:
         """
-        Constructor for a ethylene glycol mixture instance, taking the amount of concentration
-        as the only argument
+        Constructor for a ethylene glycol mixture instance
 
         @param concentration: Glycol concentration, in percent, from 0.0 to 60.0
         """
 
-        # TODO: Update with freezing temperature
-        t_min = 0.0
-        super().__init__(t_min, 100, concentration, 0.0, 60.0)
+        super().__init__(0, 100, concentration, 0.0, 60.0)
+        self.t_min = self.t_freeze = self.calc_freeze_point(concentration)
+
+        self.c_base = 30.8462
+        self.t_base = 31.728
 
         self.coeff_visc = [
-            [4.7050e-04, -2.5500e-05, 1.7820e-07, -7.6690e-10],
-            [2.4710e-05, -1.1710e-07, 1.0520e-09, -1.6340e-11],
-            [3.3280e-09, 1.0860e-09, 1.0510e-11, -6.4750e-13],
-            [1.6590e-09, 3.1570e-12, 4.0630e-13, None],
-            [3.0890e-11, 1.8310e-13, None, None],
-            [-1.8650e-12, None, None, None],
+            [4.7050e-01, -2.5500e-02, 1.7820e-04, -7.6690e-07],
+            [2.4710e-02, -1.1710e-04, 1.0520e-06, -1.6340e-08],
+            [3.3280e-06, 1.0860e-06, 1.0510e-08, -6.4750e-10],
+            [1.6590e-06, 3.1570e-09, 4.0630e-10, None],
+            [3.0890e-08, 1.8310e-10, None, None],
+            [-1.8650e-09, None, None, None],
         ]
 
         self.coeff_spht = [
@@ -55,6 +55,25 @@ class EthyleneGlycol(BaseMelinder):
             [4.8910e-08, None, None, None],
         ]
 
+    def calc_freeze_point(self, conc: float):
+        """
+        Calculate the freezing point temperature of the mixture
+
+        Based on a curve fit of the Ethylene Glycol freezing points
+        listed in Chapter 31, Table 4 of the ASHRAE Handbook of Fundamentals, 2009
+        """
+
+        # should return 0 C for low concentrations
+        if conc < 0.05:
+            return 0
+
+        # polynomial fit
+        # t_f = a + b * conc + c * conc**2 + d * conc**3
+        conc = self._check_concentration(conc)
+        coeff_freeze = [5.4792e-02, -2.9922e-01, -2.7478e-03, -9.5960e-05]
+        c_pow = [conc**p for p in range(4)]
+        return sum(x * y for x, y in zip(coeff_freeze, c_pow))
+
     def fluid_name(self) -> str:
         """
         Returns a descriptive title for this fluid
@@ -64,7 +83,7 @@ class EthyleneGlycol(BaseMelinder):
 
     def viscosity(self, temp: float) -> float:
         """
-        Calculate the dynamic viscosity of this Ethylene Glycol mixture.
+        Calculate the dynamic viscosity of the mixture
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Dynamic viscosity, in N/m2-s, or Pa-s
@@ -74,7 +93,7 @@ class EthyleneGlycol(BaseMelinder):
 
     def specific_heat(self, temp: float) -> float:
         """
-        Calculates the specific heat of this Ethylene Glycol mixture.
+        Calculates the specific heat of the mixture
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Specific heat, in J/kg-K
@@ -84,7 +103,7 @@ class EthyleneGlycol(BaseMelinder):
 
     def conductivity(self, temp: float) -> float:
         """
-        Calculates the thermal conductivity of this Ethylene Glycol mixture.
+        Calculates the thermal conductivity of the mixture
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Thermal conductivity, in W/m-K
@@ -94,7 +113,7 @@ class EthyleneGlycol(BaseMelinder):
 
     def density(self, temp: float) -> float:
         """
-        Calculates the density of this Ethylene Glycol mixture.
+        Calculates the density of the mixture
 
         @param temp: Fluid temperature, in degrees Celsius
         @return: Density, in kg/m3

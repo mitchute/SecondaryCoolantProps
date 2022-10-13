@@ -65,6 +65,27 @@ class BaseFluid(ABC):
         else:
             self.c = conc
 
+    def _check_concentration(self, conc: float) -> float:
+        """
+        An internal worker function that checks the given concentration against limits
+
+        @param conc: The concentration to check, in percent
+        @return: A validated concentration value, in percent
+        """
+
+        if conc < self.c_min:
+            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.c_min:0.2f}\n'
+            msg += f"Resetting concentration to {self.c_min:0.2f}"
+            UserWarning(msg)
+            return self.c_min
+        elif conc > self.c_max:
+            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.c_max:0.2f}\n'
+            msg += f"Resetting concentration to {self.c_max:0.2f}"
+            UserWarning(msg)
+            return self.c_max
+        else:
+            return conc
+
     def _set_temperature_limits(self, t_min, t_max) -> None:
         """
         A worker function to override the default temperature min/max values
@@ -93,7 +114,7 @@ class BaseFluid(ABC):
             msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.2f}\n'
             msg += f"Resetting temperature to {self.t_min:0.2f}"
             UserWarning(msg)
-            return self.c_min
+            return self.t_min
         elif temp > self.t_max:
             msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.2f}\n'
             msg += f"Resetting temperature to {self.t_max:0.2f}"
