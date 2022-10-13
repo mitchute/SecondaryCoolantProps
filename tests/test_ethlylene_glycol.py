@@ -7,10 +7,10 @@ class TestEthyleneGlycol(TestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.p = EthyleneGlycol(0.0)
+        self.p = EthyleneGlycol(20.0)
 
     def test_viscosity(self):
-        self.assertAlmostEqual(self.p.viscosity(1.0), 0.0016624202, delta=1.0e-05)
+        self.assertAlmostEqual(self.p.viscosity(20), 0.0016624202, delta=1.0e-05)
 
     def test_specific_heat(self):
         self.assertAlmostEqual(self.p.specific_heat(20), 3896.19, delta=1.0e-2)

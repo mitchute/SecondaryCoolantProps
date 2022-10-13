@@ -6,20 +6,24 @@ class BaseFluid(ABC):
     A fluid base class that provides convenience methods that can be accessed in derived classes
     """
 
-    def __init__(self, conc: float = 0.0) -> None:
+    def __init__(self, t_min: float, t_max: float, conc: float=None, c_min: float=None, c_max: float=None):
         """
         A constructor for a base fluid, that takes a concentration as an argument.
         Derived classes can decide how to handle the concentration argument and
         their own constructor interface as needed to construct and manage that
         specific derived class.
 
+        @param t_min: Minimum temperature, in degrees Celsius
+        @param t_max: Maximum temperature, in degrees Celsius
         @param conc: Concentration, in percent, from 0 to 100
+        @param c_min: Minimum concentration, in percent, from 0 to 100
+        @param c_max: Maximum concentration, in percent, from 0 to 100
         """
-        self.c = conc
-        self.c_min = 0.0
-        self.c_max = 100.0
-        self.temp_min = 0.0
-        self.temp_max = 100.0
+
+        self._set_temperature_limits(t_min, t_max)
+
+        if conc:
+            self._set_concentration(conc, c_min, c_max)
 
     @property
     @abstractmethod
@@ -31,49 +35,51 @@ class BaseFluid(ABC):
         """
         pass
 
-    def _set_concentration_limits(self, c_min, c_max) -> None:
-        """
-        A worker function to override the default concentration min/max values
-
-        @param c_min: The minimum concentration value to allow, ranging from 0.0 to 100.0
-        @param c_max: The maximum concentration value to allow, ranging from 0.0 to 100.0
-        @return: Nothing
-        """
-        self.c_min = c_min
-        self.c_max = c_max
-
-    def _check_concentration(self, conc: float) -> float:
+    def _set_concentration(self, conc: float, c_min: float, c_max: float) -> float:
         """
         An internal worker function that checks the given concentration against limits
 
         @param conc: The concentration to check, ranging from 0.0 to 100.0
-        @return: A validated concentration value, pulled to within limits
+        @param c_min: The minimum concentration value to allow, ranging from 0.0 to 100.0
+        @param c_max: The maximum concentration value to allow, ranging from 0.0 to 100.0
+        @return: Nothing
         """
 
-        n = self.fluid_name
+        if c_min >= c_max:
+            msg = f'Fluid "{self.fluid_name}", c_min is greater than c_max'
+            ValueError(msg)
+
+        self.c_min = c_min
+        self.c_max = c_max
+
         if conc < self.c_min:
-            msg = f'Fluid "{n}", concentration must be greater than {self.c_min:0.2f}\n'
+            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.c_min:0.2f}\n'
             msg += f"Resetting concentration to {self.c_min:0.2f}"
             UserWarning(msg)
-            return self.c_min
+            self.c = self.c_min
         elif conc > self.c_max:
-            msg = f'Fluid "{n}", concentration must be less than {self.c_max:0.2f}\n'
+            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.c_max:0.2f}\n'
             msg += f"Resetting concentration to {self.c_max:0.2f}"
             UserWarning(msg)
-            return self.c_max
+            self.c = self.c_max
         else:
-            return conc
+            self.c = conc
 
-    def _set_temperature_limits(self, temp_min, temp_max) -> None:
+    def _set_temperature_limits(self, t_min, t_max) -> None:
         """
         A worker function to override the default temperature min/max values
 
-        @param temp_min: The minimum temperature value to allow, in degrees Celsius
-        @param temp_max: The maximum temperature value to allow, ranging from 0.0 to 100.0
+        @param t_min: The minimum temperature value to allow, in degrees Celsius
+        @param t_max: The maximum temperature value to allow, ranging from 0.0 to 100.0
         @return: Nothing
         """
-        self.temp_min = temp_min
-        self.temp_max = temp_max
+
+        if t_min >= t_max:
+            msg = f'Fluid "{self.fluid_name}", t_min is greater than t_max'
+            ValueError(msg)
+
+        self.t_min = t_min
+        self.t_max = t_max
 
     def _check_temperature(self, temp: float) -> float:
         """
@@ -82,17 +88,17 @@ class BaseFluid(ABC):
         @param temp: The temperature to check, in degrees Celsius
         @return: A validated temperature value, in degrees Celsius
         """
-        fl_name = self.fluid_name
-        if temp < self.c_min:
-            msg = f'Fluid "{fl_name}", temperature must be greater than {self.temp_min:0.2f}\n'
-            msg += f"Resetting temperature to {self.temp_min:0.2f}"
+
+        if temp < self.t_min:
+            msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.2f}\n'
+            msg += f"Resetting temperature to {self.t_min:0.2f}"
             UserWarning(msg)
             return self.c_min
-        elif temp > self.c_max:
-            msg = f'Fluid "{fl_name}", temperature must be less than {self.temp_max:0.2f}\n'
-            msg += f"Resetting temperature to {self.temp_max:0.2f}"
+        elif temp > self.t_max:
+            msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.2f}\n'
+            msg += f"Resetting temperature to {self.t_max:0.2f}"
             UserWarning(msg)
-            return self.temp_max
+            return self.t_max
         else:
             return temp
 

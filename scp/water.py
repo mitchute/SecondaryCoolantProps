@@ -1,4 +1,4 @@
-from scp.base import BaseFluid
+from scp.base_fluid import BaseFluid
 
 
 class Water(BaseFluid):
@@ -7,7 +7,7 @@ class Water(BaseFluid):
         This class represents water as a fluid.  The constructor
         does not require any arguments for the pure water fluid.
         """
-        super().__init__(0.0)
+        super().__init__(0.0, 100.0)
 
     def fluid_name(self) -> str:
         """
