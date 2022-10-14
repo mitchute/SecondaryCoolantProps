@@ -37,7 +37,6 @@ class BaseFluid(ABC):
             self.c = None
             self._set_concentration(conc, c_min, c_max)
 
-    @property
     @abstractmethod
     def fluid_name(self) -> str:
         """
