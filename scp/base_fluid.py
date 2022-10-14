@@ -6,7 +6,14 @@ class BaseFluid(ABC):
     A fluid base class that provides convenience methods that can be accessed in derived classes
     """
 
-    def __init__(self, t_min: float, t_max: float, conc: float=None, c_min: float=None, c_max: float=None):
+    def __init__(
+        self,
+        t_min: float,
+        t_max: float,
+        conc: float = None,
+        c_min: float = None,
+        c_max: float = None,
+    ):
         """
         A constructor for a base fluid, that takes a concentration as an argument.
         Derived classes can decide how to handle the concentration argument and
@@ -20,9 +27,14 @@ class BaseFluid(ABC):
         @param c_max: Maximum concentration, in percent, from 0 to 100
         """
 
+        self.t_min = None
+        self.t_max = None
         self._set_temperature_limits(t_min, t_max)
 
         if conc:
+            self.c_min = None
+            self.c_max = None
+            self.c = None
             self._set_concentration(conc, c_min, c_max)
 
     @property

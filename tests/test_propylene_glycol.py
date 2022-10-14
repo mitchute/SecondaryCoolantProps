@@ -7,7 +7,7 @@ class TestPropyleneGlycol(TestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.p = PropyleneGlycol(0.0)
+        self.p = PropyleneGlycol(20.0)
 
     def test_viscosity(self):
         self.assertAlmostEqual(self.p.viscosity(20), 0.0020300812, delta=1.0e-5)
