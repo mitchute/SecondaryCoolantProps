@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from charset_normalizer import detect
-
 from scp.ethylene_glycol import EthyleneGlycol
 
 
