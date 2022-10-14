@@ -46,7 +46,7 @@ class BaseFluid(ABC):
         """
         pass
 
-    def _set_concentration(self, conc: float, c_min: float, c_max: float) -> float:
+    def _set_concentration(self, conc: float, c_min: float, c_max: float):
         """
         An internal worker function that checks the given concentration against limits
 

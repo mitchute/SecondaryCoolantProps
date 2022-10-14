@@ -36,7 +36,7 @@ class BaseMelinder(BaseFluid):
     def calc_freeze_point(self, conc: float) -> float:
         pass
 
-    def _f_prop(self, c_arr: Tuple[Tuple[float]], temp: float) -> float:
+    def _f_prop(self, c_arr: Tuple, temp: float) -> float:
         temp = self._check_temperature(temp)
 
         xxm = self.c - self.c_base
