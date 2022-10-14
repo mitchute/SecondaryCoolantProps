@@ -76,7 +76,7 @@ class EthylAlcohol(BaseMelinder):
         # polynomial fit
         # t_f = a + b * conc + c * conc**2 + d * conc**3
         conc = self._check_concentration(conc)
-        coefficient_freeze = [2.4685E+00, -9.8592E-01, 1.6750E-02, -1.8251E-04]
+        coefficient_freeze = [2.4685e00, -9.8592e-01, 1.6750e-02, -1.8251e-04]
         c_pow = [conc**p for p in range(4)]
         return sum(x * y for x, y in zip(coefficient_freeze, c_pow))
 

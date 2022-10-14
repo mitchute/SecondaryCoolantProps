@@ -38,59 +38,59 @@ class TestWater(TestCase):
 
     def test_specific_heat(self):
         # T: 1 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(1.0), 4.216e+03, delta=4.216e+01)
+        self.assertAlmostEqual(self.p.specific_heat(1.0), 4.216e03, delta=4.216e01)
 
         # T: 5 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(5.0), 4.205e+03, delta=4.205e+01)
+        self.assertAlmostEqual(self.p.specific_heat(5.0), 4.205e03, delta=4.205e01)
 
         # T: 10 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(10.0), 4.195e+03, delta=4.195e+01)
+        self.assertAlmostEqual(self.p.specific_heat(10.0), 4.195e03, delta=4.195e01)
 
         # T: 25 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(25.0), 4.181e+03, delta=4.181e+01)
+        self.assertAlmostEqual(self.p.specific_heat(25.0), 4.181e03, delta=4.181e01)
 
         # T: 50 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(50.0), 4.181e+03, delta=4.181e+01)
+        self.assertAlmostEqual(self.p.specific_heat(50.0), 4.181e03, delta=4.181e01)
 
         # T: 75 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(75.0), 4.193e+03, delta=4.193e+01)
+        self.assertAlmostEqual(self.p.specific_heat(75.0), 4.193e03, delta=4.193e01)
 
         # T: 90 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(90.0), 4.205e+03, delta=4.205e+01)
+        self.assertAlmostEqual(self.p.specific_heat(90.0), 4.205e03, delta=4.205e01)
 
         # T: 95 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(95.0), 4.210e+03, delta=4.210e+01)
+        self.assertAlmostEqual(self.p.specific_heat(95.0), 4.210e03, delta=4.210e01)
 
         # T: 99 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.specific_heat(99.0), 4.215e+03, delta=4.215e+01)
+        self.assertAlmostEqual(self.p.specific_heat(99.0), 4.215e03, delta=4.215e01)
 
     def test_density(self):
         # T: 1 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(1.0), 9.999e+02, delta=9.999e+00)
+        self.assertAlmostEqual(self.p.density(1.0), 9.999e02, delta=9.999e00)
 
         # T: 5 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(5.0), 1.000e+03, delta=1.000e+01)
+        self.assertAlmostEqual(self.p.density(5.0), 1.000e03, delta=1.000e01)
 
         # T: 10 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(10.0), 9.997e+02, delta=9.997e+00)
+        self.assertAlmostEqual(self.p.density(10.0), 9.997e02, delta=9.997e00)
 
         # T: 25 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(25.0), 9.970e+02, delta=9.970e+00)
+        self.assertAlmostEqual(self.p.density(25.0), 9.970e02, delta=9.970e00)
 
         # T: 50 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(50.0), 9.880e+02, delta=9.880e+00)
+        self.assertAlmostEqual(self.p.density(50.0), 9.880e02, delta=9.880e00)
 
         # T: 75 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(75.0), 9.748e+02, delta=9.748e+00)
+        self.assertAlmostEqual(self.p.density(75.0), 9.748e02, delta=9.748e00)
 
         # T: 90 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(90.0), 9.653e+02, delta=9.653e+00)
+        self.assertAlmostEqual(self.p.density(90.0), 9.653e02, delta=9.653e00)
 
         # T: 95 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(95.0), 9.619e+02, delta=9.619e+00)
+        self.assertAlmostEqual(self.p.density(95.0), 9.619e02, delta=9.619e00)
 
         # T: 99 [C], ErrTol: 1.0%
-        self.assertAlmostEqual(self.p.density(99.0), 9.591e+02, delta=9.591e+00)
+        self.assertAlmostEqual(self.p.density(99.0), 9.591e02, delta=9.591e00)
 
     def test_conductivity(self):
         # T: 1 [C], ErrTol: 1.0%

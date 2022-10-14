@@ -28,21 +28,28 @@ class BaseMelinder(BaseFluid):
     )
 
     @abstractmethod
-    def calc_freeze_point(self, conc: float) -> float: pass
+    def calc_freeze_point(self, conc: float) -> float:
+        pass
 
     @abstractmethod
-    def coefficient_viscosity(self) -> Tuple: pass
+    def coefficient_viscosity(self) -> Tuple:
+        pass
 
     @abstractmethod
-    def coefficient_specific_heat(self) -> Tuple: pass
+    def coefficient_specific_heat(self) -> Tuple:
+        pass
 
     @abstractmethod
-    def coefficient_conductivity(self) -> Tuple: pass
+    def coefficient_conductivity(self) -> Tuple:
+        pass
 
     @abstractmethod
-    def coefficient_density(self) -> Tuple: pass
+    def coefficient_density(self) -> Tuple:
+        pass
 
-    def __init__(self, t_min: float, t_max: float, conc: float, c_min: float, c_max: float):
+    def __init__(
+        self, t_min: float, t_max: float, conc: float, c_min: float, c_max: float
+    ):
         super().__init__(t_min, t_max, conc, c_min, c_max)
         self.c_base = None
         self.t_base = None
@@ -53,8 +60,8 @@ class BaseMelinder(BaseFluid):
 
         xxm = self.c - self.c_base
         yym = temp - self.t_base
-        x_xm = [xxm ** p for p in range(6)]
-        y_ym = [yym ** p for p in range(4)]
+        x_xm = [xxm**p for p in range(6)]
+        y_ym = [yym**p for p in range(4)]
 
         f_ret = 0.0
 
