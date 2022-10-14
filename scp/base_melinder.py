@@ -27,15 +27,26 @@ class BaseMelinder(BaseFluid):
         (5, 0)
     )
 
+    @abstractmethod
+    def calc_freeze_point(self, conc: float) -> float: pass
+
+    @abstractmethod
+    def coefficient_viscosity(self) -> Tuple: pass
+
+    @abstractmethod
+    def coefficient_specific_heat(self) -> Tuple: pass
+
+    @abstractmethod
+    def coefficient_conductivity(self) -> Tuple: pass
+
+    @abstractmethod
+    def coefficient_density(self) -> Tuple: pass
+
     def __init__(self, t_min: float, t_max: float, conc: float, c_min: float, c_max: float):
         super().__init__(t_min, t_max, conc, c_min, c_max)
         self.c_base = None
         self.t_base = None
         self.freeze_point = None
-
-    @abstractmethod
-    def calc_freeze_point(self, conc: float) -> float:
-        pass
 
     def _f_prop(self, c_arr: Tuple, temp: float) -> float:
         temp = self._check_temperature(temp)
@@ -51,18 +62,6 @@ class BaseMelinder(BaseFluid):
             f_ret += c_arr[i][j] * x_xm[i] * y_ym[j]
 
         return f_ret
-
-    @abstractmethod
-    def coefficient_viscosity(self) -> Tuple: pass
-
-    @abstractmethod
-    def coefficient_specific_heat(self) -> Tuple: pass
-
-    @abstractmethod
-    def coefficient_conductivity(self) -> Tuple: pass
-
-    @abstractmethod
-    def coefficient_density(self) -> Tuple: pass
 
     def viscosity(self, temp: float) -> float:
         """
