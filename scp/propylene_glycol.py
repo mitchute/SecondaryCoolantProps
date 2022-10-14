@@ -15,7 +15,7 @@ class PropyleneGlycol(BaseMelinder):
             (5.4530e-05, -8.6000e-08, -1.5930e-08, -4.4650e-11),
             (-3.9000e-06, 1.0540e-07, -1.5890e-09),
             (-1.5870e-08, 4.4750e-10),
-            (3.5640e-09,)
+            (3.5640e-09,),
         )
 
     def coefficient_specific_heat(self) -> Tuple:
@@ -25,7 +25,7 @@ class PropyleneGlycol(BaseMelinder):
             (-1.5980e-01, 9.5340e-05, 1.1670e-05, -4.8700e-08),
             (3.5390e-04, 3.1020e-05, -2.9500e-07),
             (5.0000e-05, -7.1350e-07),
-            (-4.9590e-07,)
+            (-4.9590e-07,),
         )
 
     def coefficient_conductivity(self) -> Tuple:
@@ -35,7 +35,7 @@ class PropyleneGlycol(BaseMelinder):
             (2.0760e-05, 1.5630e-07, -4.6150e-09, 9.8970e-12),
             (-9.0830e-08, -2.5180e-09, 6.5430e-11),
             (-5.9520e-10, -3.6050e-11),
-            (2.1040e-11,)
+            (2.1040e-11,),
         )
 
     def coefficient_density(self) -> Tuple:
@@ -45,7 +45,7 @@ class PropyleneGlycol(BaseMelinder):
             (-2.4980e-03, 2.7000e-05, -4.0180e-07, 3.3760e-09),
             (-1.5500e-04, 2.8290e-06, -7.1750e-09),
             (-1.1310e-06, -2.2210e-08),
-            (2.3420e-08,)
+            (2.3420e-08,),
         )
 
     def __init__(self, concentration: float) -> None:
@@ -66,7 +66,7 @@ class PropyleneGlycol(BaseMelinder):
         Calculate the freezing point temperature of the mixture
 
         Based on a curve fit of the Propylene Glycol freezing points
-        listed in Chapter 31, Table 4 of the ASHRAE Handbook of Fundamentals, 2009
+        listed in Chapter 31, Table 5 of the ASHRAE Handbook of Fundamentals, 2009
         """
 
         # should return 0 C for low concentrations

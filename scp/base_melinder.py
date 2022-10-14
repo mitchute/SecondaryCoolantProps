@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from math import exp
 from typing import Tuple
 
 from scp.base_fluid import BaseFluid
@@ -71,7 +72,7 @@ class BaseMelinder(BaseFluid):
         @return: Dynamic viscosity, in N/m2-s, or Pa-s
         """
 
-        return self._f_prop(self.coefficient_viscosity(), temp)
+        return exp(self._f_prop(self.coefficient_viscosity(), temp)) / 1000.0
 
     def specific_heat(self, temp: float) -> float:
         """
