@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to GHEDesigner's documentation!
+Welcome to SecondaryCoolantProps's documentation!
 =======================================
 
 .. toctree::
@@ -11,8 +11,12 @@ Welcome to GHEDesigner's documentation!
    :caption: Contents:
 
    fluid_base
+   fluid_melinder
    fluid_water
-   fluid_propylene
+   fluid_propylene_glycol
+   fluid_ethylene_glycol
+   fluid_ethyl_alcohol
+   fluid_methyl_alcohol
 
 
 Indices and tables

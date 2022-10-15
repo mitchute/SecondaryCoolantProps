@@ -3,16 +3,17 @@ from abc import ABC, abstractmethod
 
 class BaseFluid(ABC):
     """
-    A fluid base class that provides convenience methods that can be accessed in derived classes
+    A fluid base class that provides convenience methods that can be accessed
+    in derived classes.
     """
 
     def __init__(
         self,
         t_min: float,
         t_max: float,
-        conc: float = None,
-        c_min: float = None,
-        c_max: float = None,
+        x: float = None,
+        x_min: float = None,
+        x_max: float = None,
     ):
         """
         A constructor for a base fluid, that takes a concentration as an argument.
@@ -22,20 +23,21 @@ class BaseFluid(ABC):
 
         @param t_min: Minimum temperature, in degrees Celsius
         @param t_max: Maximum temperature, in degrees Celsius
-        @param conc: Concentration, in percent, from 0 to 100
-        @param c_min: Minimum concentration, in percent, from 0 to 100
-        @param c_max: Maximum concentration, in percent, from 0 to 100
+        @param x: Concentration fraction, from 0 to 1
+        @param x_min: Minimum concentration fraction, from 0 to 1
+        @param x_max: Maximum concentration fraction, from 0 to 1
         """
 
         self.t_min = None
         self.t_max = None
         self._set_temperature_limits(t_min, t_max)
 
-        if conc:
-            self.c_min = None
-            self.c_max = None
-            self.c = None
-            self._set_concentration(conc, c_min, c_max)
+        if type(x) is not type(None):  # noqa: E721
+            self.x_min = None
+            self.x_max = None
+            self.x = None
+            self.x_pct = None
+            self._set_concentration(x, x_min, x_max)
 
     @abstractmethod
     def fluid_name(self) -> str:
@@ -46,63 +48,65 @@ class BaseFluid(ABC):
         """
         pass
 
-    def _set_concentration(self, conc: float, c_min: float, c_max: float):
+    def _set_concentration(self, x: float, x_min: float, x_max: float):
         """
         An internal worker function that checks the given concentration against limits
 
-        @param conc: The concentration to check, ranging from 0.0 to 100.0
-        @param c_min: The minimum concentration value to allow, ranging from 0.0 to 100.0
-        @param c_max: The maximum concentration value to allow, ranging from 0.0 to 100.0
+        @param x: The concentration fraction to check, ranging from 0 to 1
+        @param x_min: The minimum concentration fraction to allow, ranging from 0 to 1
+        @param x_max: The maximum concentration fraction to allow, ranging from 0 to 1
         @return: Nothing
         """
 
-        if c_min >= c_max:
-            msg = f'Fluid "{self.fluid_name}", c_min is greater than c_max'
+        if x_min >= x_max:
+            msg = f'Fluid "{self.fluid_name}", x_min is greater than x_max'
             ValueError(msg)
 
-        self.c_min = c_min
-        self.c_max = c_max
+        self.x_min = x_min
+        self.x_max = x_max
 
-        if conc < self.c_min:
-            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.c_min:0.2f}\n'
-            msg += f"Resetting concentration to {self.c_min:0.2f}"
+        if x < self.x_min:
+            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.x_min:0.2f}\n'
+            msg += f"Resetting concentration to {self.x_min:0.2f}"
             UserWarning(msg)
-            self.c = self.c_min
-        elif conc > self.c_max:
-            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.c_max:0.2f}\n'
-            msg += f"Resetting concentration to {self.c_max:0.2f}"
+            self.x = self.x_min
+        elif x > self.x_max:
+            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.x_max:0.2f}\n'
+            msg += f"Resetting concentration to {self.x_max:0.2f}"
             UserWarning(msg)
-            self.c = self.c_max
+            self.x = self.x_max
         else:
-            self.c = conc
+            self.x = x
 
-    def _check_concentration(self, conc: float) -> float:
+        self.x_pct = self.x * 100
+
+    def _check_concentration(self, x: float) -> float:
         """
         An internal worker function that checks the given concentration against limits
 
-        @param conc: The concentration to check, in percent
+        @param x: The concentration to check, in percent
         @return: A validated concentration value, in percent
         """
 
-        if conc < self.c_min:
-            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.c_min:0.2f}\n'
-            msg += f"Resetting concentration to {self.c_min:0.2f}"
+        if x < self.x_min:
+            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.x_min:0.2f}\n'
+            msg += f"Resetting concentration to {self.x_min:0.2f}"
             UserWarning(msg)
-            return self.c_min
-        elif conc > self.c_max:
-            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.c_max:0.2f}\n'
-            msg += f"Resetting concentration to {self.c_max:0.2f}"
+            return self.x_min
+        elif x > self.x_max:
+            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.x_max:0.2f}\n'
+            msg += f"Resetting concentration to {self.x_max:0.2f}"
             UserWarning(msg)
-            return self.c_max
+            return self.x_max
         else:
-            return conc
+            return x
 
     def _set_temperature_limits(self, t_min, t_max) -> None:
         """
         A worker function to override the default temperature min/max values
 
         @param t_min: The minimum temperature value to allow, in degrees Celsius
-        @param t_max: The maximum temperature value to allow, ranging from 0.0 to 100.0
+        @param t_max: The maximum temperature value to allow, in degrees Celsius
         @return: Nothing
         """
 

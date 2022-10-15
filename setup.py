@@ -17,8 +17,6 @@ setup(
     url='https://github.com/mitchute/SecondaryCoolantProps',
     license='Something',
     entry_points={
-        'console_scripts': [
-            'scprop=scp.cli:cli',
-        ]
+        'console_scripts': ['SCProps=scp.cli:main', 'scprop=scp.cli:cli']
     }
 )

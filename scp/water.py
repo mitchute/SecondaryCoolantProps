@@ -40,10 +40,10 @@ class Water(BaseFluid):
         am12 = 2.1249e-05
         am13 = -2.69575e-08
         if temp < 20:
-            exponent = (am0 + am1 / (am2 + (temp - 20) * (am3 + am4 * (temp - 20))))
-            return (10 ** exponent) * 0.1
+            exponent = am0 + am1 / (am2 + (temp - 20) * (am3 + am4 * (temp - 20)))
+            return (10**exponent) * 0.1
         if temp > 100:
-            return (am10 + temp * am11 + (temp ** 2) * am12 + (temp ** 3) * am13) * 0.001
+            return (am10 + temp * am11 + (temp**2) * am12 + (temp**3) * am13) * 0.001
         return (am5 * 10 ** ((temp - 20) * (am6 + (temp - 20) * am7) / (temp + am8))) * 0.001
 
     def specific_heat(self, temp: float) -> float:
@@ -61,11 +61,17 @@ class Water(BaseFluid):
 
         acp0 = 4.21534
         acp1 = -0.00287819
-        acp2 = 7.4729E-05
-        acp3 = -7.79624E-07
-        acp4 = 3.220424E-09
+        acp2 = 7.4729e-05
+        acp3 = -7.79624e-07
+        acp4 = 3.220424e-09
 
-        return (acp0 + temp * acp1 + (temp ** 2) * acp2 + (temp ** 3) * acp3 + (temp ** 4) * acp4) * 1000
+        return (
+            acp0
+            + temp * acp1
+            + (temp**2) * acp2
+            + (temp**3) * acp3
+            + (temp**4) * acp4
+        ) * 1000
 
     def conductivity(self, temp: float) -> float:
         """
@@ -81,11 +87,13 @@ class Water(BaseFluid):
 
         ak0 = 0.560101
         ak1 = 0.00211703
-        ak2 = -1.05172E-05
-        ak3 = 1.497323E-08
-        ak4 = -1.48553E-11
+        ak2 = -1.05172e-05
+        ak3 = 1.497323e-08
+        ak4 = -1.48553e-11
 
-        return ak0 + temp * ak1 + (temp ** 2) * ak2 + (temp ** 3) * ak3 + (temp ** 4) * ak4
+        return (
+            ak0 + temp * ak1 + (temp**2) * ak2 + (temp**3) * ak3 + (temp**4) * ak4
+        )
 
     def density(self, temp: float) -> float:
         """
@@ -102,10 +110,16 @@ class Water(BaseFluid):
         ar0 = 999.83952
         ar1 = 16.945176
         ar2 = -0.0079870401
-        ar3 = -4.6170461E-05
-        ar4 = 1.0556302E-07
-        ar5 = -2.8054253E-10
+        ar3 = -4.6170461e-05
+        ar4 = 1.0556302e-07
+        ar5 = -2.8054253e-10
         ar6 = 0.01687985
 
-        return (ar0 + temp * ar1 + (temp ** 2) * ar2 + (temp ** 3) * ar3 + (temp ** 4) * ar4 + (temp ** 5) * ar5) / (
-                1 + ar6 * temp)
+        return (
+            ar0
+            + temp * ar1
+            + (temp**2) * ar2
+            + (temp**3) * ar3
+            + (temp**4) * ar4
+            + (temp**5) * ar5
+        ) / (1 + ar6 * temp)
