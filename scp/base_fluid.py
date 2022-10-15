@@ -32,7 +32,7 @@ class BaseFluid(ABC):
         self.t_max = None
         self._set_temperature_limits(t_min, t_max)
 
-        if type(x) is not type(None): # noqa: E721
+        if type(x) is not type(None):  # noqa: E721
             self.x_min = None
             self.x_max = None
             self.x = None
