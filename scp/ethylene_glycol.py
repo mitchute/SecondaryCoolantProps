@@ -48,17 +48,17 @@ class EthyleneGlycol(BaseMelinder):
             (4.8910e-08,),
         )
 
-    def __init__(self, concentration: float) -> None:
+    def __init__(self, x: float) -> None:
         """
         Constructor for an ethylene glycol mixture instance
 
-        @param concentration: Glycol concentration, in percent, from 0.0 to 60.0
+        @param x: Glycol concentration fraction, from 0 to 0.6
         """
 
-        super().__init__(0.0, 100, concentration, 0.0, 60.0)
-        self.t_min = self.t_freeze = self.calc_freeze_point(concentration)
+        super().__init__(0.0, 100, x, 0.0, 0.6)
+        self.t_min = self.t_freeze = self.calc_freeze_point(x)
 
-        self.c_base = 30.8462
+        self.x_base = 30.8462
         self.t_base = 31.728
 
     def calc_freeze_point(self, conc: float) -> float:

@@ -52,16 +52,16 @@ class EthylAlcohol(BaseMelinder):
         """
         Constructor for an ethyl alcohol mixture instance
 
-        @param concentration: concentration, in percent, from 0.0 to 60.0
+        @param concentration: concentration fraction, from 0 to 0.6
         """
 
-        super().__init__(0.0, 40, concentration, 0.0, 60.0)
+        super().__init__(0.0, 40, concentration, 0.0, 0.6)
         self.t_min = self.t_freeze = self.calc_freeze_point(concentration)
 
-        self.c_base = 29.2361
+        self.x_base = 29.2361
         self.t_base = 8.1578
 
-    def calc_freeze_point(self, conc: float) -> float:
+    def calc_freeze_point(self, x: float) -> float:
         """
         Calculate the freezing point temperature of the mixture
 
@@ -70,15 +70,15 @@ class EthylAlcohol(BaseMelinder):
         """
 
         # should return 0 C for low concentrations
-        if conc < 0.05:
+        if x < 0.05:
             return 0
 
         # polynomial fit
         # t_f = a + b * conc + c * conc**2 + d * conc**3
-        conc = self._check_concentration(conc)
+        x = self._check_concentration(x)
         coefficient_freeze = [2.4685e00, -9.8592e-01, 1.6750e-02, -1.8251e-04]
-        c_pow = [conc**p for p in range(4)]
-        return sum(x * y for x, y in zip(coefficient_freeze, c_pow))
+        c_pow = [x**p for p in range(4)]
+        return sum(i * j for i, j in zip(coefficient_freeze, c_pow))
 
     def fluid_name(self) -> str:
         """

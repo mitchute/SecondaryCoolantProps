@@ -46,80 +46,80 @@ class TestPropyleneGlycol(TestCase):
 
     def test_2(self):
 
-        p = EthylAlcohol(20.0)
+        p = EthylAlcohol(0.2)
 
-        # Visc @ T=5degC, X=20: 4.0621e-03. Err Tol: 0.1%
+        # Visc @ T=5degC, X=0.2: 4.0621e-03. Err Tol: 0.1%
         self.assertAlmostEqual(p.viscosity(5), 4.0621e-03, delta=4.0621e-06)
 
-        # Dens @ T=5degC, X=20: 9.7442e+02. Err Tol: 0.1%
+        # Dens @ T=5degC, X=0.2: 9.7442e+02. Err Tol: 0.1%
         self.assertAlmostEqual(p.density(5), 9.7442e02, delta=9.7442e-01)
 
-        # SpHt @ T=5degC, X=20: 4.3595e+03. Err Tol: 0.1%
+        # SpHt @ T=5degC, X=0.2: 4.3595e+03. Err Tol: 0.1%
         self.assertAlmostEqual(p.specific_heat(5), 4.3595e03, delta=4.3595e00)
 
-        # Cond @ T=5degC, X=20: 4.5243e-01. Err Tol: 0.1%
+        # Cond @ T=5degC, X=0.2: 4.5243e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(5), 4.5243e-01, delta=4.5243e-04)
 
-        # Visc @ T=20degC, X=20: 2.1648e-03. Err Tol: 0.1%
+        # Visc @ T=20degC, X=0.2: 2.1648e-03. Err Tol: 0.1%
         self.assertAlmostEqual(p.viscosity(20), 2.1648e-03, delta=2.1648e-06)
 
-        # Dens @ T=20degC, X=20: 9.6892e+02. Err Tol: 0.1%
+        # Dens @ T=20degC, X=0.2: 9.6892e+02. Err Tol: 0.1%
         self.assertAlmostEqual(p.density(20), 9.6892e02, delta=9.6892e-01)
 
-        # SpHt @ T=20degC, X=20: 4.3287e+03. Err Tol: 0.1%
+        # SpHt @ T=20degC, X=0.2: 4.3287e+03. Err Tol: 0.1%
         self.assertAlmostEqual(p.specific_heat(20), 4.3287e03, delta=4.3287e00)
 
-        # Cond @ T=20degC, X=20: 4.6631e-01. Err Tol: 0.1%
+        # Cond @ T=20degC, X=0.2: 4.6631e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(20), 4.6631e-01, delta=4.6631e-04)
 
-        # Visc @ T=40degC, X=20: 1.1640e-03. Err Tol: 0.1%
+        # Visc @ T=40degC, X=0.2: 1.1640e-03. Err Tol: 0.1%
         self.assertAlmostEqual(p.viscosity(40), 1.1640e-03, delta=1.1640e-06)
 
-        # Dens @ T=40degC, X=20: 9.5881e+02. Err Tol: 0.1%
+        # Dens @ T=40degC, X=0.2: 9.5881e+02. Err Tol: 0.1%
         self.assertAlmostEqual(p.density(40), 9.5881e02, delta=9.5881e-01)
 
-        # SpHt @ T=40degC, X=20: 4.3200e+03. Err Tol: 0.1%
+        # SpHt @ T=40degC, X=0.2: 4.3200e+03. Err Tol: 0.1%
         self.assertAlmostEqual(p.specific_heat(40), 4.3200e03, delta=4.3200e00)
 
-        # Cond @ T=40degC, X=20: 4.8440e-01. Err Tol: 0.1%
+        # Cond @ T=40degC, X=0.2: 4.8440e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(40), 4.8440e-01, delta=4.8440e-04)
 
     def test_3(self):
 
-        p = EthylAlcohol(40.0)
+        p = EthylAlcohol(0.4)
 
-        # Visc @ T=5degC, X=40: 5.5016e-03. Err Tol: 0.1%
+        # Visc @ T=5degC, X=0.4: 5.5016e-03. Err Tol: 0.1%
         self.assertAlmostEqual(p.viscosity(5), 5.5016e-03, delta=5.5016e-06)
 
-        # Dens @ T=5degC, X=40: 9.4601e+02. Err Tol: 0.1%
+        # Dens @ T=5degC, X=0.4: 9.4601e+02. Err Tol: 0.1%
         self.assertAlmostEqual(p.density(5), 9.4601e02, delta=9.4601e-01)
 
-        # SpHt @ T=5degC, X=40: 3.9315e+03. Err Tol: 0.1%
+        # SpHt @ T=5degC, X=0.4: 3.9315e+03. Err Tol: 0.1%
         self.assertAlmostEqual(p.specific_heat(5), 3.9315e03, delta=3.9315e00)
 
-        # Cond @ T=5degC, X=40: 3.5458e-01. Err Tol: 0.1%
+        # Cond @ T=5degC, X=0.4: 3.5458e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(5), 3.5458e-01, delta=3.5458e-04)
 
-        # Visc @ T=20degC, X=40: 2.8758e-03. Err Tol: 0.1%
+        # Visc @ T=20degC, X=0.4: 2.8758e-03. Err Tol: 0.1%
         self.assertAlmostEqual(p.viscosity(20), 2.8758e-03, delta=2.8758e-06)
 
-        # Dens @ T=20degC, X=40: 9.3532e+02. Err Tol: 0.1%
+        # Dens @ T=20degC, X=0.4: 9.3532e+02. Err Tol: 0.1%
         self.assertAlmostEqual(p.density(20), 9.3532e02, delta=9.3532e-01)
 
-        # SpHt @ T=20degC, X=40: 4.0293e+03. Err Tol: 0.1%
+        # SpHt @ T=20degC, X=0.4: 4.0293e+03. Err Tol: 0.1%
         self.assertAlmostEqual(p.specific_heat(20), 4.0293e03, delta=4.0293e00)
 
-        # Cond @ T=20degC, X=40: 3.6120e-01. Err Tol: 0.1%
+        # Cond @ T=20degC, X=0.4: 3.6120e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(20), 3.6120e-01, delta=3.6120e-04)
 
-        # Visc @ T=40degC, X=40: 1.4573e-03. Err Tol: 0.1%
+        # Visc @ T=40degC, X=0.4: 1.4573e-03. Err Tol: 0.1%
         self.assertAlmostEqual(p.viscosity(40), 1.4573e-03, delta=1.4573e-06)
 
-        # Dens @ T=40degC, X=40: 9.2026e+02. Err Tol: 0.1%
+        # Dens @ T=40degC, X=0.4: 9.2026e+02. Err Tol: 0.1%
         self.assertAlmostEqual(p.density(40), 9.2026e02, delta=9.2026e-01)
 
-        # SpHt @ T=40degC, X=40: 4.1199e+03. Err Tol: 0.1%
+        # SpHt @ T=40degC, X=0.4: 4.1199e+03. Err Tol: 0.1%
         self.assertAlmostEqual(p.specific_heat(40), 4.1199e03, delta=4.1199e00)
 
-        # Cond @ T=40degC, X=40: 3.6934e-01. Err Tol: 0.1%
+        # Cond @ T=40degC, X=0.4: 3.6934e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(40), 3.6934e-01, delta=3.6934e-04)
