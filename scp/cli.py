@@ -13,18 +13,33 @@ _valid_fluid_strs = ["EA", "EG", "MA", "PG", "W"]
 
 
 def _check_valid_prop(prop_str: str):
+    """
+    Worker function to validate property type strings
+    """
     if prop_str not in _valid_prop_strs:
         msg = f"PropStr not valid: {prop_str}"
         raise ValueError(msg)
 
 
 def _check_valid_fluid(fluid_str: str):
+    """
+    Worker function to validate fluid type string
+    """
     if fluid_str not in _valid_fluid_strs:
         msg = f"FluidStr not valid: {fluid_str}"
         raise ValueError(msg)
 
 
 def SCProps(prop_str, temp, x_conc, fluid_str):
+    """
+    Convenience function for console usage.
+    Developers should integrate the classes directly for typical applications.
+
+    @param prop_str: property type string
+    @param temp: temperature, in Celsius
+    @param x_conc: mixture concentration fraction, from 0 to 1
+    @param fluid_str: fluid type string
+    """
 
     prop_str = prop_str.upper()
     fluid_str = fluid_str.upper()
@@ -60,6 +75,16 @@ def SCProps(prop_str, temp, x_conc, fluid_str):
 
 
 def main():
+    """
+    Primary calling point for console usage.
+
+    Requires four positional arguments be passed:
+    PropStr - Property type string
+    Temp - Temperature in Celsius
+    XConc - Mixture concentration fraction, from 0 to 1
+    FluidStr - Fluid type string
+    """
+
     parser = argparse.ArgumentParser()
     parser.add_argument("PropStr", type=str, help=f"Property strings: {_valid_prop_strs}")
     parser.add_argument("Temp", type=float, help="Fluid temperature, in Celsius: [<100]")

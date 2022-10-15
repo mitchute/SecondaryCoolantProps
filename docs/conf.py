@@ -12,9 +12,9 @@ root_dir = Path(__file__).parent.parent.resolve()
 path.insert(0, str(root_dir))
 
 
-project = 'GHEDesigner'
-copyright = '2022, People'
-author = 'People'
+project = 'SecondaryCoolantProps'
+copyright = '2022, Mitchell, M.; Lee, E.'
+author = 'Matt Mitchell, Edwin Lee'
 release = '0.1'
 
 # -- General configuration ---------------------------------------------------
