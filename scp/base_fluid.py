@@ -145,6 +145,10 @@ class BaseFluid(ABC):
         """
         pass
 
+    @staticmethod
+    def viscosity_units() -> str:
+        return "Pa-s"
+
     def mu(self, temp: float) -> float:
         """
         Convenience function for returning the dynamic viscosity by the common letter 'mu'
@@ -164,6 +168,10 @@ class BaseFluid(ABC):
         @return: Returns the specific heat in [J/kg-K]
         """
         pass
+
+    @staticmethod
+    def specific_heat_units() -> str:
+        return 'J/kg-K'
 
     def cp(self, temp: float) -> float:
         """
@@ -185,6 +193,10 @@ class BaseFluid(ABC):
         """
         pass
 
+    @staticmethod
+    def density_units() -> str:
+        return 'kg/m3'
+
     def rho(self, temp: float) -> float:
         """
         Convenience function for returning the density by the common shorthand 'rho'
@@ -205,6 +217,10 @@ class BaseFluid(ABC):
         """
         pass
 
+    @staticmethod
+    def conductivity_units() -> str:
+        return 'W/m-K'
+
     def k(self, temp: float) -> float:
         """
         Convenience function for returning the thermal conductivity by the common shorthand 'k'
@@ -223,6 +239,10 @@ class BaseFluid(ABC):
         """
         return self.cp(temp) * self.mu(temp) / self.k(temp)
 
+    @staticmethod
+    def prandtl_units() -> str:
+        return '-'
+
     def pr(self, temp: float = 0.0) -> float:
         """
         Convenience function for returning the Prandtl number by the common shorthand 'pr'
@@ -240,6 +260,10 @@ class BaseFluid(ABC):
         @return: Returns the thermal diffusivity in [m2/s]
         """
         return self.k(temp) / (self.rho(temp) * self.cp(temp))
+
+    @staticmethod
+    def thermal_diffusivity_units() -> str:
+        return 'm2/s'
 
     def alpha(self, temp: float) -> float:
         """

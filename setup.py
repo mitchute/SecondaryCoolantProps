@@ -16,4 +16,9 @@ setup(
     author_email='mitchute@gmail.com',
     url='https://github.com/mitchute/SecondaryCoolantProps',
     license='Something',
+    entry_points={
+        'console_scripts': [
+            'scprop=scp.cli:cli',
+        ]
+    }
 )

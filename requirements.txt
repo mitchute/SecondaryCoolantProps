@@ -1,3 +1,4 @@
 black
 nose
 sphinx
+click
