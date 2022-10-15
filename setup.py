@@ -10,6 +10,7 @@ setup(
     version="0.3",
     packages=['scp'],
     description="A collection of secondary coolant fluid property functions and classes",
+    install_requires=['click'],
     long_description=readme_contents,
     long_description_content_type='text/markdown',
     author='Matt Mitchell',
