@@ -48,15 +48,15 @@ class EthylAlcohol(BaseMelinder):
             (-8.3180e-08,),
         )
 
-    def __init__(self, concentration: float) -> None:
+    def __init__(self, x: float) -> None:
         """
         Constructor for an ethyl alcohol mixture instance
 
-        @param concentration: concentration fraction, from 0 to 0.6
+        @param x: Concentration fraction, from 0 to 0.6
         """
 
-        super().__init__(0.0, 40, concentration, 0.0, 0.6)
-        self.t_min = self.t_freeze = self.calc_freeze_point(concentration)
+        super().__init__(0.0, 40, x, 0.0, 0.6)
+        self.t_min = self.t_freeze = self.calc_freeze_point(x)
 
         self.x_base = 29.2361
         self.t_base = 8.1578
@@ -67,6 +67,8 @@ class EthylAlcohol(BaseMelinder):
 
         Based on a curve fit of the Ethyl Alcohol freezing points
         Engineering Toolbox - https://www.engineeringtoolbox.com/ethanol-water-d_989.html
+
+        @param x: Concentration fraction, from 0 to 0.6
         """
 
         # should return 0 C for low concentrations

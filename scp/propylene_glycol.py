@@ -52,7 +52,7 @@ class PropyleneGlycol(BaseMelinder):
         """
         Constructor for a propylene glycol mixture instance
 
-        @param x: Glycol concentration fraction, from 0 to 0.6
+        @param x: Concentration fraction, from 0 to 0.6
         """
 
         super().__init__(0.0, 100.0, x, 0.0, 0.6)

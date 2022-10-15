@@ -52,7 +52,7 @@ class MethylAlcohol(BaseMelinder):
         """
         Constructor for an methyl alcohol mixture instance
 
-        @param x: concentration fraction, from 0 to 0.6
+        @param x: Concentration fraction, from 0 to 0.6
         """
 
         super().__init__(0.0, 40.0, x, 0.0, 0.6)

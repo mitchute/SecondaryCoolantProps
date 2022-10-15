@@ -79,12 +79,7 @@ class BaseMelinder(BaseFluid):
         pass
 
     def __init__(
-        self,
-        t_min: float,
-        t_max: float,
-        x: float,
-        x_min: float,
-        x_max: float
+        self, t_min: float, t_max: float, x: float, x_min: float, x_max: float
     ):
 
         """
