@@ -1,4 +1,4 @@
 black
+click
 nose
 sphinx
-click
