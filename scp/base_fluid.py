@@ -41,7 +41,7 @@ class BaseFluid(ABC):
             self._set_concentration_limits(x, x_min, x_max)
 
     @abstractproperty
-    def fluid_name() -> str:
+    def fluid_name(self) -> str:
         """
         An abstract property that needs to return the fluid name in derived fluid classes
 
