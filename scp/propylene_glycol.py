@@ -80,6 +80,7 @@ class PropyleneGlycol(BaseMelinder):
         c_pow = [x**p for p in range(4)]
         return sum(i * j for i, j in zip(coefficient_freeze, c_pow))
 
+    @property
     def fluid_name(self) -> str:
         """
         Returns a descriptive title for this fluid

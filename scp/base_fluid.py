@@ -1,4 +1,5 @@
-from abc import ABC, abstractmethod
+import warnings
+from abc import ABC, abstractmethod, abstractproperty
 
 
 class BaseFluid(ABC):
@@ -37,20 +38,23 @@ class BaseFluid(ABC):
             self.x_max = None
             self.x = None
             self.x_pct = None
-            self._set_concentration(x, x_min, x_max)
+            self._set_concentration_limits(x, x_min, x_max)
 
-    @abstractmethod
-    def fluid_name(self) -> str:
+    @abstractproperty
+    def fluid_name() -> str:
         """
-        An abstract method that needs to return the fluid name in derived fluid classes
+        An abstract property that needs to return the fluid name in derived fluid classes
+
+        Derived function must be decorated with @property
 
         @return: string name of the fluid
         """
         pass
 
-    def _set_concentration(self, x: float, x_min: float, x_max: float):
+    def _set_concentration_limits(self, x: float, x_min: float, x_max: float):
         """
-        An internal worker function that checks the given concentration against limits
+        An internal worker function that checks the given concentration against limits,
+        and sets internal variables.
 
         @param x: The concentration fraction to check, ranging from 0 to 1
         @param x_min: The minimum concentration fraction to allow, ranging from 0 to 1
@@ -59,25 +63,12 @@ class BaseFluid(ABC):
         """
 
         if x_min >= x_max:
-            msg = f'Fluid "{self.fluid_name}", x_min is greater than x_max'
-            ValueError(msg)
+            msg = f'Developer error: Fluid "{self.fluid_name}", x_min is greater than x_max'
+            raise ValueError(msg)
 
         self.x_min = x_min
         self.x_max = x_max
-
-        if x < self.x_min:
-            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.x_min:0.2f}\n'
-            msg += f"Resetting concentration to {self.x_min:0.2f}"
-            UserWarning(msg)
-            self.x = self.x_min
-        elif x > self.x_max:
-            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.x_max:0.2f}\n'
-            msg += f"Resetting concentration to {self.x_max:0.2f}"
-            UserWarning(msg)
-            self.x = self.x_max
-        else:
-            self.x = x
-
+        self.x = self._check_concentration(x)
         self.x_pct = self.x * 100
 
     def _check_concentration(self, x: float) -> float:
@@ -89,14 +80,14 @@ class BaseFluid(ABC):
         """
 
         if x < self.x_min:
-            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.x_min:0.2f}\n'
-            msg += f"Resetting concentration to {self.x_min:0.2f}"
-            UserWarning(msg)
+            msg = f'Fluid "{self.fluid_name}", concentration must be greater than {self.x_min:0.2f}.\n'
+            msg += f"Resetting concentration to {self.x_min:0.2f}."
+            warnings.warn(msg)
             return self.x_min
         elif x > self.x_max:
-            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.x_max:0.2f}\n'
-            msg += f"Resetting concentration to {self.x_max:0.2f}"
-            UserWarning(msg)
+            msg = f'Fluid "{self.fluid_name}", concentration must be less than {self.x_max:0.2f}.\n'
+            msg += f"Resetting concentration to {self.x_max:0.2f}."
+            warnings.warn(msg)
             return self.x_max
         else:
             return x
@@ -126,14 +117,14 @@ class BaseFluid(ABC):
         """
 
         if temp < self.t_min:
-            msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.2f}\n'
-            msg += f"Resetting temperature to {self.t_min:0.2f}"
-            UserWarning(msg)
+            msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.1f}.\n'
+            msg += f"Resetting temperature to {self.t_min:0.1f}."
+            warnings.warn(msg)
             return self.t_min
         elif temp > self.t_max:
-            msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.2f}\n'
-            msg += f"Resetting temperature to {self.t_max:0.2f}"
-            UserWarning(msg)
+            msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.1f}.\n'
+            msg += f"Resetting temperature to {self.t_max:0.1f}."
+            warnings.warn(msg)
             return self.t_max
         else:
             return temp
