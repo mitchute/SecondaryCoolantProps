@@ -9,6 +9,7 @@ class Water(BaseFluid):
         """
         super().__init__(0.0, 100.0)
 
+    @property
     def fluid_name(self) -> str:
         """
         Returns the fluid name for this derived fluid.
