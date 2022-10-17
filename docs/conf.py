@@ -8,14 +8,18 @@
 
 from pathlib import Path
 from sys import path
+
 root_dir = Path(__file__).parent.parent.resolve()
 path.insert(0, str(root_dir))
 
+import datetime
+
+from scp import VERSION
 
 project = 'SecondaryCoolantProps'
-copyright = '2022, Mitchell, M.; Lee, E.'
+copyright = f'{datetime.date.today().year}, Mitchell, M.; Lee, E.'
 author = 'Matt Mitchell, Edwin Lee'
-release = '0.1'
+release = VERSION
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -24,7 +28,6 @@ extensions = ['sphinx.ext.viewcode', 'sphinx.ext.autodoc']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 
 # -- Options for HTML output -------------------------------------------------

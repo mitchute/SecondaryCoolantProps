@@ -1,5 +1,5 @@
-Propylene Glycol Documentation
-==============================
+Propylene Glycol
+================
 
 Propylene glycol functionality has been implemented:
 

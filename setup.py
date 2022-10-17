@@ -1,13 +1,15 @@
 import pathlib
+
 from setuptools import setup
 
+from scp import VERSION
 
 readme_file = pathlib.Path(__file__).parent.resolve() / 'README.md'
 readme_contents = readme_file.read_text()
 
 setup(
     name="SecondaryCoolantProps",
-    version="0.3",
+    version=VERSION,
     packages=['scp'],
     description="A collection of secondary coolant fluid property functions and classes",
     install_requires=['click'],
@@ -16,7 +18,7 @@ setup(
     author='Matt Mitchell',
     author_email='mitchute@gmail.com',
     url='https://github.com/mitchute/SecondaryCoolantProps',
-    license='Something',
+    license='BSD license',
     entry_points={
         'console_scripts': ['scprop=scp.cli:cli']
     }

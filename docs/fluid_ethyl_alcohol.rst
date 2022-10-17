@@ -1,5 +1,5 @@
-Ethyl Alcohol (Ethylene) Documentation
-======================================
+Ethyl Alcohol (Ethylene)
+========================
 
 Ethyl alcohol functionality has been implemented:
 

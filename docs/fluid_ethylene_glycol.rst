@@ -1,5 +1,5 @@
-Ethylene Glycol Documentation
-=============================
+Ethylene Glycol
+===============
 
 Ethylene glycol functionality has been implemented:
 

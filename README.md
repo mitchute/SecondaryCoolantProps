@@ -12,10 +12,9 @@ Code is checked for style and with unit tests by GitHub Actions using nosetests 
 
 ## Documentation
 
-[![Sphinx docs to gh-pages](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/docs.yml/badge.svg)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/docs.yml)
-[![gh-pages](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/pages/pages-build-deployment)
+[![Documentation Status](https://readthedocs.org/projects/secondarycoolantprops/badge/?version=latest)](https://secondarycoolantprops.readthedocs.io/en/latest/?badge=latest)
 
-Docs are built from Sphinx by GitHub Actions and followed up with a deployment to GH-Pages using Actions, available at https://mitchute.github.io/SecondaryCoolantProps/
+Docs are built from Sphinx on ReadTheDocs.org, and are available at https://secondarycoolantprops.readthedocs.io/en/latest/
 
 ## Releases
 

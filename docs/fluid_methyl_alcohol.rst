@@ -1,5 +1,5 @@
-Methyl Alcohol (Methylene) Documentation
-========================================
+Methyl Alcohol (Methylene)
+==========================
 
 Methyl alcohol functionality has been implemented:
 
