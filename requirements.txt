@@ -2,3 +2,4 @@ black
 click
 nose
 sphinx
+sphinx-rtd-theme
