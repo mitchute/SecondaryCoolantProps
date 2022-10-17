@@ -1,5 +1,5 @@
 Ethylene Glycol Documentation
-==============================
+=============================
 
 Ethylene glycol functionality has been implemented:
 
