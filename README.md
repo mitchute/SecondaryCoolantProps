@@ -21,10 +21,8 @@ Docs are built from Sphinx by GitHub Actions and followed up with a deployment t
 
 [![PyPIRelease](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/release.yml/badge.svg)](https://github.com/mitchute/SecondaryCoolantProps/actions/workflows/release.yml)
 
-When a release is tagged, a GitHub Action workflow will create a Python wheel and upload it to the TestPyPi server.
+When a release is tagged, a GitHub Action workflow will create a Python wheel and upload it to the PyPi server.
 
-To install into an existing Python environment, execute `pip install -i https://test.pypi.org/simple/ SecondaryCoolantProps`
+To install into an existing Python environment, execute `pip install SecondaryCoolantProps`
 
-Project page on TestPyPi: https://test.pypi.org/project/SecondaryCoolantProps/
-
-Once things have stabilized, the releases will be pushed to the main PyPi server.
+Project page: https://pypi.org/project/SecondaryCoolantProps/
