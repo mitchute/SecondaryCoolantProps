@@ -7,6 +7,7 @@ Welcome to SecondaryCoolantProps's documentation!
 
    base_fluids
    cli
+   prog_usage
    fluid_instances
 
 
