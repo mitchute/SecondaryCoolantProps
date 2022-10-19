@@ -1,29 +1,29 @@
-from . import propylene_glycol
-from . import ethylene_glycol
-from . import methyl_alcohol
-from . import ethyl_alcohol
-from . import water
-from . import base_melinder
+from .water import Water
+from .propylene_glycol import PropyleneGlycol
+from .ethylene_glycol import EthyleneGlycol
+from .methyl_alcohol import MethylAlcohol
+from .ethyl_alcohol import EthylAlcohol
 
+from .base_melinder import BaseMelinder
 from typing import Any
 
 
 class Fluid:
 
     fluids = {
-        ('WATER',): water.Water,
-        ('MPG', 'PROPYLENEGLYCOL'): propylene_glycol.PropyleneGlycol,
-        ('MEG', 'ETHYLENEGLYCOL'): ethylene_glycol.EthyleneGlycol,
-        ('MMA', 'METHYLALCOHOL'): methyl_alcohol.MethylAlcohol,
-        ('ETHYLENEGLYCOL', 'MEA'): ethyl_alcohol.EthylAlcohol
+        ('WATER',): Water,
+        ('MPG', 'PROPYLENEGLYCOL'): PropyleneGlycol,
+        ('MEG', 'ETHYLENEGLYCOL'): EthyleneGlycol,
+        ('MMA', 'METHYLALCOHOL'): MethylAlcohol,
+        ('ETHYLENEGLYCOL', 'MEA'): EthylAlcohol
     }
 
     @staticmethod
     def __new__(cls: Any, fluid_name: str, *args: Any, **kwargs: Any) -> \
-            base_melinder.BaseMelinder:
+            BaseMelinder:
 
         for key in Fluid.fluids:
             if fluid_name.upper() in key:
                 return Fluid.fluids[key](**kwargs)
         else:
-            raise ValueError("Unknown fluid type.")
+            raise ValueError(f'Unsupported fluid mixture: "{fluid_name}".')
