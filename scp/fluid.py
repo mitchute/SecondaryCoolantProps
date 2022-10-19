@@ -16,10 +16,10 @@ class Fluid:
     }
 
     @staticmethod
-    def __new__(cls, fluid_name, x, *args, **kwargs):
+    def __new__(cls, fluid_name, *args, **kwargs):
 
         for key in Fluid.fluids:
             if fluid_name.upper() in key:
-                return Fluid.fluids[key](0.0)
+                return Fluid.fluids[key](**kwargs)
         else:
             raise ValueError("Unknown fluid type.")
