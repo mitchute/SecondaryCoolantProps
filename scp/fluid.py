@@ -3,6 +3,9 @@ from . import ethylene_glycol
 from . import methyl_alcohol
 from . import ethyl_alcohol
 from . import water
+from . import base_melinder
+
+from typing import Any
 
 
 class Fluid:
@@ -16,7 +19,8 @@ class Fluid:
     }
 
     @staticmethod
-    def __new__(cls, fluid_name, *args, **kwargs):
+    def __new__(cls: Any, fluid_name: str, *args: Any, **kwargs: Any) -> \
+            base_melinder.BaseMelinder:
 
         for key in Fluid.fluids:
             if fluid_name.upper() in key:
