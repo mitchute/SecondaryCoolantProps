@@ -19,11 +19,11 @@ class Fluid:
     }
 
     @staticmethod
-    def __new__(cls: Any, fluid_name: str, *args: Any, **kwargs: Any) -> \
-            BaseMelinder:
+    def __new__(cls: Any, fluid_name: str, x: float, *args: Any, **kwargs: Any) \
+            -> BaseMelinder:
 
         for key in Fluid.fluids:
             if fluid_name.upper() in key:
-                return Fluid.fluids[key](**kwargs)
+                return Fluid.fluids[key](x=x)
         else:
             raise ValueError(f'Unsupported fluid mixture: "{fluid_name}".')
