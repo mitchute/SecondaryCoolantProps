@@ -1,8 +1,10 @@
 from scp.base_fluid import BaseFluid
 
+from typing import Any
+
 
 class Water(BaseFluid):
-    def __init__(self) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         This class represents water as a fluid.  The constructor
         does not require any arguments for the pure water fluid.
