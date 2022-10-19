@@ -19,7 +19,7 @@ class Fluid:
     }
 
     @staticmethod
-    def __new__(cls: Any, fluid_name: str, x: float, *args: Any, **kwargs: Any) \
+    def __new__(cls: Any, fluid_name: str, x: float = 0.0, *args: Any, **kwargs: Any) \
             -> BaseMelinder:
 
         for key in Fluid.fluids:
