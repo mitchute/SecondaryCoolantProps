@@ -11,7 +11,7 @@ class Water(BaseFluid):
         does not require any arguments for the pure water fluid.
         """
         super().__init__(0.0, 100.0)
-        
+
         if kwargs.get('x', 0):
             warnings.warn(f'The concentration x is unused in the '
                           f'{self.fluid_name} class.', SyntaxWarning)

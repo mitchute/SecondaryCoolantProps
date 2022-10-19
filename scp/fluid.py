@@ -4,8 +4,9 @@ from .ethylene_glycol import EthyleneGlycol
 from .methyl_alcohol import MethylAlcohol
 from .ethyl_alcohol import EthylAlcohol
 
+from .base_fluid import BaseFluid
 from .base_melinder import BaseMelinder
-from typing import Any
+from typing import Any, Union
 
 
 class Fluid:
@@ -20,7 +21,7 @@ class Fluid:
 
     @staticmethod
     def __new__(cls: Any, fluid_name: str, x: float = 0.0, *args: Any, **kwargs: Any) \
-            -> BaseMelinder:
+            -> Union[BaseFluid, BaseMelinder]:
 
         for key in Fluid.fluids:
             if fluid_name.upper() in key:
