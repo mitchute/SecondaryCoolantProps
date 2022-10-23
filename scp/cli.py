@@ -1,17 +1,11 @@
 import click
-from sys import stderr
-from scp import water, ethyl_alcohol, ethylene_glycol, propylene_glycol, methyl_alcohol
+from scp import fluid
 
 # Add this to .bashrc for nice completion:  eval "$(_SCPROP_COMPLETE=bash_source scprop)"
 
-fluids = {
-    "water": water.Water,
-    "ethyl_alcohol": ethyl_alcohol.EthylAlcohol,
-    "ethylene_glycol": ethylene_glycol.EthyleneGlycol,
-    "methyl_alcohol": methyl_alcohol.MethylAlcohol,
-    "propylene_glycol": propylene_glycol.PropyleneGlycol,
-}
-fluid_options = click.Choice(list(fluids.keys()))
+_fluid_options = list(fluid.Fluid.fluids.keys())
+fluid_options = click.Choice([_fluid_options[i][0]
+                              for i in range(len(_fluid_options))])
 properties = (
     "viscosity",
     "specific_heat",
@@ -64,21 +58,9 @@ x_range = click.FloatRange(min=0.0, max=1.0)
     default=False,
     help="Just report the value, good for scripts",
 )
-def cli(fluid: str, concentration: float, fluid_prop: str, temperature: float, quick: bool):
-    if concentration == 0.0 and fluid != "water":
-        print(
-            "Mixture requested, but concentration zero, assuming water and continuing",
-            file=stderr,
-        )
-    elif concentration > 0.0 and fluid == "water":
-        print(
-            "Pure water requested, but nonzero concentration entered, assuming water and continuing",
-            file=stderr,
-        )
-    if fluid == "water" or concentration == 0.0:
-        f = water.Water()
-    else:
-        f = fluids[fluid](concentration)
+def cli(fluid_name: str, concentration: float, fluid_prop: str, temperature: float, quick: bool):
+    f = fluid.Fluid(fluid_name, concentration)
+
     value = getattr(f, fluid_prop)(temperature)
     units = getattr(f, f"{fluid_prop}_units")()
     if quick:
