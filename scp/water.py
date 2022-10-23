@@ -1,7 +1,8 @@
 from scp.base_fluid import BaseFluid
 
 from typing import Any
-import warnings
+
+from sys import stderr
 
 
 class Water(BaseFluid):
@@ -13,8 +14,8 @@ class Water(BaseFluid):
         super().__init__(0.0, 100.0)
 
         if kwargs.get('x', 0):
-            warnings.warn(f'The concentration x is unused in the '
-                          f'{self.fluid_name} class.', SyntaxWarning)
+            print("Pure water requested, but nonzero concentration entered, "
+                  "assuming water and continuing", file=stderr)
 
     @property
     def fluid_name(self) -> str:

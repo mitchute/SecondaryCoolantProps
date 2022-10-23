@@ -8,15 +8,17 @@ from .base_fluid import BaseFluid
 from .base_melinder import BaseMelinder
 from typing import Any, Union
 
+from sys import stderr
+
 
 class Fluid:
 
     fluids = {
-        ('WATER',): Water,
-        ('MPG', 'PROPYLENEGLYCOL'): PropyleneGlycol,
-        ('MEG', 'ETHYLENEGLYCOL'): EthyleneGlycol,
-        ('MMA', 'METHYLALCOHOL'): MethylAlcohol,
-        ('ETHYLENEGLYCOL', 'MEA'): EthylAlcohol
+        ('water', 'WATER'): Water,
+        ('propylene_glycol', 'PROPYLENEGLYCOL', 'MPG'): PropyleneGlycol,
+        ('ethylene_glycol', 'ETHYLENEGLYCOL', 'MEG'): EthyleneGlycol,
+        ('methyl_alcohol', 'METHYLALCOHOL', 'MMA'): MethylAlcohol,
+        ('ethylene_glycol', 'ETHYLENEGLYCOL', 'MEA'): EthylAlcohol
     }
 
     @staticmethod
@@ -25,6 +27,11 @@ class Fluid:
 
         for key in Fluid.fluids:
             if fluid_name.upper() in key:
-                return Fluid.fluids[key](x=x)
+                fluid_cls = Fluid.fluids[key]
+                if type(fluid_cls) != Water and x == 0.0:
+                    print("Mixture requested, but concentration zero, assuming "
+                          "water and continuing.", file=stderr)
+                    fluid_cls = Water
+                return fluid_cls(x=x)
         else:
             raise ValueError(f'Unsupported fluid mixture: "{fluid_name}".')
