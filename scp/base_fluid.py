@@ -130,6 +130,21 @@ class BaseFluid(ABC):
             return temp
 
     @abstractmethod
+    def freeze_point(self, x: float) -> float:
+        """
+        Abstract method; derived classes shoule override the freezing
+        point of that fluid
+
+        @param x: Fluid concentration fraction, ranging from 0 to 1
+        @return Returns the freezing point of the fluid, in Celsius
+        """
+        pass
+
+    @staticmethod
+    def freeze_point_units() -> str:
+        return "C"
+
+    @abstractmethod
     def viscosity(self, temp: float) -> float:
         """
         Abstract method; derived classes should override to return the dynamic

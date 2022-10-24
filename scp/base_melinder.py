@@ -36,13 +36,10 @@ class BaseMelinder(BaseFluid):
     )
 
     @abstractmethod
-    def calc_freeze_point(self, x: float) -> float:
+    def coefficient_freezing(self) -> Tuple:
         """
         Abstract method; derived classes should override to return the
-        mixture freezing point.
-
-        @param x: Concentration fraction, from 0 to 1
-        @return: Returns the mixture freezing point, Celsius
+        coefficient matrix for freezing point.
         """
         pass
 
@@ -95,12 +92,41 @@ class BaseMelinder(BaseFluid):
         super().__init__(t_min, t_max, x, x_min, x_max)
         self.x_base = None
         self.t_base = None
-        self.freeze_point = None
+
+    def _f_prop_t_freeze(self, c_arr: Tuple, x: float) -> float:
+        """
+        General worker function to evaluate fluid properties as
+        a function of concentration.
+
+        @param c_arr:
+        @param x:
+
+        @return:
+        """
+
+        x = self._check_concentration(x)
+
+        xxm = (x * 100) - self.x_base
+        yym = self.t_base
+        x_xm = [xxm**p for p in range(6)]
+        y_ym = [yym**p for p in range(4)]
+
+        f_ret = 0.0
+
+        for i, j in BaseMelinder._ij_pairs:
+            f_ret += c_arr[i][j] * x_xm[i] * y_ym[j]
+
+        return f_ret
 
     def _f_prop(self, c_arr: Tuple, temp: float) -> float:
         """
         General worker function to evaluate fluid properties as
         a function of concentration and temperature.
+
+        @param c_arr:
+        @param temp:
+
+        @return:
         """
 
         temp = self._check_temperature(temp)
@@ -156,3 +182,13 @@ class BaseMelinder(BaseFluid):
         """
 
         return self._f_prop(self.coefficient_density(), temp)
+
+    def freeze_point(self, x: float) -> float:
+        """
+        Calculate the freezing point temperature of the mixture
+
+        @param x: Concentration fraction
+        @return Freezing point temperature, in Celsius
+        """
+
+        return self._f_prop_t_freeze(self.coefficient_freezing(), x)

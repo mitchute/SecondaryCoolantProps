@@ -120,3 +120,6 @@ class TestWater(TestCase):
 
         # T: 99 [C], ErrTol: 1.0%
         self.assertAlmostEqual(self.p.conductivity(99.0), 6.768e-01, delta=6.768e-03)
+
+    def test_t_freeze(self):
+        self.assertAlmostEqual(Water().freeze_point(), 0.000, delta=1.0e-02)

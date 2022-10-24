@@ -123,3 +123,22 @@ class TestEthyleneGlycol(TestCase):
 
         # Cond @ T=40degC, X=0.4: 4.4050e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(40), 4.4050e-01, delta=4.4050e-04)
+
+    def test_t_freeze(self):
+        # T_freeze @ X=0.1: -3.357. ErrTol=0.01C
+        self.assertAlmostEqual(EthyleneGlycol(0.1).freeze_point(0.1), -3.357, delta=1.0e-02)
+
+        # T_freeze @ X=0.2: -7.949. ErrTol=0.01C
+        self.assertAlmostEqual(EthyleneGlycol(0.2).freeze_point(0.2), -7.949, delta=1.0e-02)
+
+        # T_freeze @ X=0.3: -14.576. ErrTol=0.01C
+        self.assertAlmostEqual(EthyleneGlycol(0.3).freeze_point(0.3), -14.576, delta=1.0e-02)
+
+        # T_freeze @ X=0.4: -23.813. ErrTol=0.01C
+        self.assertAlmostEqual(EthyleneGlycol(0.4).freeze_point(0.4), -23.813, delta=1.0e-02)
+
+        # T_freeze @ X=0.5: -35.994. ErrTol=0.01C
+        self.assertAlmostEqual(EthyleneGlycol(0.5).freeze_point(0.5), -35.994, delta=1.0e-02)
+
+        # T_freeze @ X=0.6: -51.201. ErrTol=0.01C
+        self.assertAlmostEqual(EthyleneGlycol(0.6).freeze_point(0.6), -51.201, delta=1.0e-02)
