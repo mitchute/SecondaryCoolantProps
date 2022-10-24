@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scp.ethylene_glycol &mdash; SecondaryCoolantProps 1.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SecondaryCoolantProps
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base_fluids.html">Fluid Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prog_usage.html">Preferred Programmatic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fluid_instances.html">Supported Fluids</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SecondaryCoolantProps</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scp.ethylene_glycol</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scp.ethylene_glycol</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">scp.base_melinder</span> <span class="kn">import</span> <span class="n">BaseMelinder</span>
+
+
+<div class="viewcode-block" id="EthyleneGlycol"><a class="viewcode-back" href="../../fluid_ethylene_glycol.html#scp.ethylene_glycol.EthyleneGlycol">[docs]</a><span class="k">class</span> <span class="nc">EthyleneGlycol</span><span class="p">(</span><span class="n">BaseMelinder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A derived fluid class for ethylene glycol and water mixtures</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EthyleneGlycol.coefficient_freezing"><a class="viewcode-back" href="../../fluid_ethylene_glycol.html#scp.ethylene_glycol.EthyleneGlycol.coefficient_freezing">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_freezing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.5250e+01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5660e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.2780e-07</span><span class="p">,</span> <span class="mf">2.1690e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">8.0800e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3390e-06</span><span class="p">,</span> <span class="mf">2.0470e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.7170e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.3340e-02</span><span class="p">,</span> <span class="mf">6.3220e-08</span><span class="p">,</span> <span class="mf">2.3730e-10</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.1830e-12</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">7.2930e-05</span><span class="p">,</span> <span class="mf">1.7640e-09</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.4420e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.0060e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.6620e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.1400e-09</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthyleneGlycol.coefficient_viscosity"><a class="viewcode-back" href="../../fluid_ethylene_glycol.html#scp.ethylene_glycol.EthyleneGlycol.coefficient_viscosity">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_viscosity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">4.7050e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5500e-02</span><span class="p">,</span> <span class="mf">1.7820e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.6690e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.4710e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1710e-04</span><span class="p">,</span> <span class="mf">1.0520e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.6340e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.3280e-06</span><span class="p">,</span> <span class="mf">1.0860e-06</span><span class="p">,</span> <span class="mf">1.0510e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.4750e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.6590e-06</span><span class="p">,</span> <span class="mf">3.1570e-09</span><span class="p">,</span> <span class="mf">4.0630e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.0890e-08</span><span class="p">,</span> <span class="mf">1.8310e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.8650e-09</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthyleneGlycol.coefficient_specific_heat"><a class="viewcode-back" href="../../fluid_ethylene_glycol.html#scp.ethylene_glycol.EthyleneGlycol.coefficient_specific_heat">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_specific_heat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">3.7370e03</span><span class="p">,</span> <span class="mf">2.9300e00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.6750e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3890e-05</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.7990e01</span><span class="p">,</span> <span class="mf">1.0460e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.1470e-04</span><span class="p">,</span> <span class="mf">1.8470e-7</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">9.9330e-02</span><span class="p">,</span> <span class="mf">3.5160e-04</span><span class="p">,</span> <span class="mf">5.1090e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.1380e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.6100e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1890e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.6430e-7</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.5370e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2720e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.6180e-06</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthyleneGlycol.coefficient_conductivity"><a class="viewcode-back" href="../../fluid_ethylene_glycol.html#scp.ethylene_glycol.EthyleneGlycol.coefficient_conductivity">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">4.7200e-01</span><span class="p">,</span> <span class="mf">8.9030e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0580e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.7890e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">4.2860e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4730e-05</span><span class="p">,</span> <span class="mf">1.0590e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1420e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.7470e-05</span><span class="p">,</span> <span class="mf">6.8140e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6120e-09</span><span class="p">,</span> <span class="mf">2.3650e-12</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.0170e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.4120e-09</span><span class="p">,</span> <span class="mf">4.0040e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.3220e-09</span><span class="p">,</span> <span class="mf">2.5550e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.6780e-11</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthyleneGlycol.coefficient_density"><a class="viewcode-back" href="../../fluid_ethylene_glycol.html#scp.ethylene_glycol.EthyleneGlycol.coefficient_density">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_density</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">1.0340e03</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.7810e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6920e-03</span><span class="p">,</span> <span class="mf">4.7250e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.3110e00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.8760e-03</span><span class="p">,</span> <span class="mf">4.8050e-05</span><span class="p">,</span> <span class="mf">1.6900e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">7.4900e-05</span><span class="p">,</span> <span class="mf">7.8550e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.9950e-07</span><span class="p">,</span> <span class="mf">4.9820e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.0620e-04</span><span class="p">,</span> <span class="mf">1.2290e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1530e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">9.6230e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.2110e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">4.8910e-08</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for an ethylene glycol mixture instance</span>
+
+<span class="sd">        @param x: Concentration fraction, from 0 to 0.6</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_base</span> <span class="o">=</span> <span class="mf">30.8462</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_base</span> <span class="o">=</span> <span class="mf">31.728</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_freeze</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeze_point</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fluid_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a descriptive title for this fluid</span>
+<span class="sd">        @return: &quot;EthyleneGlycol&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;EthyleneGlycol&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mitchell, M.; Lee, E..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scp.base_melinder &mdash; SecondaryCoolantProps 1.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SecondaryCoolantProps
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base_fluids.html">Fluid Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prog_usage.html">Preferred Programmatic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fluid_instances.html">Supported Fluids</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SecondaryCoolantProps</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scp.base_melinder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scp.base_melinder</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">scp.base_fluid</span> <span class="kn">import</span> <span class="n">BaseFluid</span>
+
+<span class="c1"># Ideally the type hints would cause the coefficient returns to return this, but it is</span>
+<span class="c1">#  bulky and I haven&#39;t been able to get a new typing NewType to work properly, so for now</span>
+<span class="c1">#  they just return a plain Tuple.</span>
+<span class="c1"># Tuple[</span>
+<span class="c1">#     Tuple[float, float, float, float],</span>
+<span class="c1">#     Tuple[float, float, float, float],</span>
+<span class="c1">#     Tuple[float, float, float, float],</span>
+<span class="c1">#     Tuple[float, float, float],</span>
+<span class="c1">#     Tuple[float, float],</span>
+<span class="c1">#     float</span>
+<span class="c1"># ]</span>
+
+
+<div class="viewcode-block" id="BaseMelinder"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder">[docs]</a><span class="k">class</span> <span class="nc">BaseMelinder</span><span class="p">(</span><span class="n">BaseFluid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A base class for Melinder fluids that provides convenience methods</span>
+<span class="sd">    that can be accessed in derrived classes.</span>
+
+<span class="sd">    Melinder, Å. 2010. Properties of Secondary Working Fluids</span>
+<span class="sd">    for Indirect Systems. 2nd ed. International Institute of Refrigeration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ij_pairs</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="BaseMelinder.coefficient_freezing"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.coefficient_freezing">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">coefficient_freezing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the</span>
+<span class="sd">        coefficient matrix for freezing point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.coefficient_viscosity"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.coefficient_viscosity">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">coefficient_viscosity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the</span>
+<span class="sd">        coefficient matrix for viscosity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.coefficient_specific_heat"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.coefficient_specific_heat">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">coefficient_specific_heat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the</span>
+<span class="sd">        coefficient matrix for specific heat.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.coefficient_conductivity"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.coefficient_conductivity">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">coefficient_conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the</span>
+<span class="sd">        coefficient matrix for conductivity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.coefficient_density"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.coefficient_density">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">coefficient_density</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the</span>
+<span class="sd">        coefficient matrix for density.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">t_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A constructor for the Melinder fluid base class</span>
+
+<span class="sd">        @param t_min: Minimum temperature, in degrees Celsius</span>
+<span class="sd">        @param t_max: Maximum temperature, in degrees Celsius</span>
+<span class="sd">        @param x: Concentration fraction, from 0 to 1</span>
+<span class="sd">        @param x_min: Minimum concentration fraction, from 0 to 1</span>
+<span class="sd">        @param x_max: Maximum concentration fraction, from 0 to 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_base</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_base</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_f_prop_t_freeze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_arr</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        General worker function to evaluate fluid properties as</span>
+<span class="sd">        a function of concentration.</span>
+
+<span class="sd">        @param c_arr:</span>
+<span class="sd">        @param x:</span>
+
+<span class="sd">        @return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_concentration</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">xxm</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_base</span>
+        <span class="n">yym</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_base</span>
+        <span class="n">x_xm</span> <span class="o">=</span> <span class="p">[</span><span class="n">xxm</span><span class="o">**</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+        <span class="n">y_ym</span> <span class="o">=</span> <span class="p">[</span><span class="n">yym</span><span class="o">**</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+        <span class="n">f_ret</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">BaseMelinder</span><span class="o">.</span><span class="n">_ij_pairs</span><span class="p">:</span>
+            <span class="n">f_ret</span> <span class="o">+=</span> <span class="n">c_arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_xm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_ym</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">f_ret</span>
+
+    <span class="k">def</span> <span class="nf">_f_prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_arr</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        General worker function to evaluate fluid properties as</span>
+<span class="sd">        a function of concentration and temperature.</span>
+
+<span class="sd">        @param c_arr:</span>
+<span class="sd">        @param temp:</span>
+
+<span class="sd">        @return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_temperature</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+        <span class="n">xxm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pct</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_base</span>
+        <span class="n">yym</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_base</span>
+        <span class="n">x_xm</span> <span class="o">=</span> <span class="p">[</span><span class="n">xxm</span><span class="o">**</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+        <span class="n">y_ym</span> <span class="o">=</span> <span class="p">[</span><span class="n">yym</span><span class="o">**</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+        <span class="n">f_ret</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">BaseMelinder</span><span class="o">.</span><span class="n">_ij_pairs</span><span class="p">:</span>
+            <span class="n">f_ret</span> <span class="o">+=</span> <span class="n">c_arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_xm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_ym</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">f_ret</span>
+
+<div class="viewcode-block" id="BaseMelinder.viscosity"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.viscosity">[docs]</a>    <span class="k">def</span> <span class="nf">viscosity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the dynamic viscosity of the mixture</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Dynamic viscosity, in N/m2-s, or Pa-s</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_f_prop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient_viscosity</span><span class="p">(),</span> <span class="n">temp</span><span class="p">))</span> <span class="o">/</span> <span class="mf">1000.0</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.specific_heat"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.specific_heat">[docs]</a>    <span class="k">def</span> <span class="nf">specific_heat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the specific heat of the mixture</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Specific heat, in J/kg-K</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_prop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient_specific_heat</span><span class="p">(),</span> <span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.conductivity"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.conductivity">[docs]</a>    <span class="k">def</span> <span class="nf">conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the thermal conductivity of the mixture</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Thermal conductivity, in W/m-K</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_prop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient_conductivity</span><span class="p">(),</span> <span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.density"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.density">[docs]</a>    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the density of the mixture</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Density, in kg/m3</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_prop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient_density</span><span class="p">(),</span> <span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseMelinder.freeze_point"><a class="viewcode-back" href="../../fluid_melinder.html#scp.base_melinder.BaseMelinder.freeze_point">[docs]</a>    <span class="k">def</span> <span class="nf">freeze_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the freezing point temperature of the mixture</span>
+
+<span class="sd">        @param x: Concentration fraction</span>
+<span class="sd">        @return Freezing point temperature, in Celsius</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_prop_t_freeze</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient_freezing</span><span class="p">(),</span> <span class="n">x</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mitchell, M.; Lee, E..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scp.ethyl_alcohol &mdash; SecondaryCoolantProps 1.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SecondaryCoolantProps
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base_fluids.html">Fluid Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prog_usage.html">Preferred Programmatic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fluid_instances.html">Supported Fluids</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SecondaryCoolantProps</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scp.ethyl_alcohol</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scp.ethyl_alcohol</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">scp.base_melinder</span> <span class="kn">import</span> <span class="n">BaseMelinder</span>
+
+
+<div class="viewcode-block" id="EthylAlcohol"><a class="viewcode-back" href="../../fluid_ethyl_alcohol.html#scp.ethyl_alcohol.EthylAlcohol">[docs]</a><span class="k">class</span> <span class="nc">EthylAlcohol</span><span class="p">(</span><span class="n">BaseMelinder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A derived fluid class for ethylene glycol and water mixtures</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EthylAlcohol.coefficient_freezing"><a class="viewcode-back" href="../../fluid_ethyl_alcohol.html#scp.ethyl_alcohol.EthylAlcohol.coefficient_freezing">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_freezing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.9410e+01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6680e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0050e-05</span><span class="p">,</span> <span class="mf">1.5240e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">9.5400e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2090e-05</span><span class="p">,</span> <span class="mf">2.8770e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.3940e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.6480e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.1730e-07</span><span class="p">,</span> <span class="mf">8.6520e-09</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.7170e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.8510e-04</span><span class="p">,</span> <span class="mf">1.3400e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0910e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.8580e-07</span><span class="p">,</span> <span class="mf">9.3120e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.6700e-07</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthylAlcohol.coefficient_viscosity"><a class="viewcode-back" href="../../fluid_ethyl_alcohol.html#scp.ethyl_alcohol.EthylAlcohol.coefficient_viscosity">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_viscosity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">1.4740e00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.7450e-02</span><span class="p">,</span> <span class="mf">4.3140e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0230e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.5650e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.1060e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1350e-06</span><span class="p">,</span> <span class="mf">7.0040e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">8.4350e-04</span><span class="p">,</span> <span class="mf">1.6400e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0910e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9670e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">7.5520e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1180e-07</span><span class="p">,</span> <span class="mf">1.8990e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.5290e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.4810e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">4.1300e-09</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthylAlcohol.coefficient_specific_heat"><a class="viewcode-back" href="../../fluid_ethyl_alcohol.html#scp.ethyl_alcohol.EthylAlcohol.coefficient_specific_heat">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_specific_heat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">4.2040e03</span><span class="p">,</span> <span class="mf">2.3190e00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0420e-02</span><span class="p">,</span> <span class="mf">6.8600e-04</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.1020e01</span><span class="p">,</span> <span class="mf">4.9270e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0720e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.6900e-05</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">3.7140e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.3350e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9600e-05</span><span class="p">,</span> <span class="mf">7.4610e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.7430e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9690e-04</span><span class="p">,</span> <span class="mf">1.9010e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">6.2920e-05</span><span class="p">,</span> <span class="mf">5.3530e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">8.2900e-06</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthylAlcohol.coefficient_conductivity"><a class="viewcode-back" href="../../fluid_ethyl_alcohol.html#scp.ethyl_alcohol.EthylAlcohol.coefficient_conductivity">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">4.0670e-01</span><span class="p">,</span> <span class="mf">6.7750e-04</span><span class="p">,</span> <span class="mf">3.1050e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0000e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">5.0080e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.3770e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.2160e-08</span><span class="p">,</span> <span class="mf">8.3620e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.8010e-05</span><span class="p">,</span> <span class="mf">2.6690e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6060e-09</span><span class="p">,</span> <span class="mf">1.5520e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.0090e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.8130e-09</span><span class="p">,</span> <span class="mf">1.4290e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.5060e-09</span><span class="p">,</span> <span class="mf">1.1670e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.6530e-11</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="EthylAlcohol.coefficient_density"><a class="viewcode-back" href="../../fluid_ethyl_alcohol.html#scp.ethyl_alcohol.EthylAlcohol.coefficient_density">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_density</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">9.6190e02</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.2220e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.2810e-03</span><span class="p">,</span> <span class="mf">1.5690e-05</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.4330e00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9890e-02</span><span class="p">,</span> <span class="mf">1.8700e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.1540e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.2600e-02</span><span class="p">,</span> <span class="mf">2.2810e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.5810e-08</span><span class="p">,</span> <span class="mf">4.0560e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.6900e-04</span><span class="p">,</span> <span class="mf">8.5940e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.6070e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.2910e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5900e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">8.3180e-08</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for an ethyl alcohol mixture instance</span>
+
+<span class="sd">        @param x: Concentration fraction, from 0 to 0.6</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_base</span> <span class="o">=</span> <span class="mf">29.2361</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_base</span> <span class="o">=</span> <span class="mf">8.1578</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_freeze</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeze_point</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fluid_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a descriptive title for this fluid</span>
+<span class="sd">        @return: &quot;EthylAlcohol&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;EthylAlcohol&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mitchell, M.; Lee, E..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

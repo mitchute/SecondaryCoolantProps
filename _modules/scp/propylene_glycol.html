@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scp.propylene_glycol &mdash; SecondaryCoolantProps 1.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SecondaryCoolantProps
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base_fluids.html">Fluid Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prog_usage.html">Preferred Programmatic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fluid_instances.html">Supported Fluids</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SecondaryCoolantProps</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scp.propylene_glycol</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scp.propylene_glycol</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">scp.base_melinder</span> <span class="kn">import</span> <span class="n">BaseMelinder</span>
+
+
+<div class="viewcode-block" id="PropyleneGlycol"><a class="viewcode-back" href="../../fluid_propylene_glycol.html#scp.propylene_glycol.PropyleneGlycol">[docs]</a><span class="k">class</span> <span class="nc">PropyleneGlycol</span><span class="p">(</span><span class="n">BaseMelinder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A derived fluid class for propylene glycol and water mixtures</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PropyleneGlycol.coefficient_freezing"><a class="viewcode-back" href="../../fluid_propylene_glycol.html#scp.propylene_glycol.PropyleneGlycol.coefficient_freezing">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_freezing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.3250e+01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.8200e-05</span><span class="p">,</span> <span class="mf">7.8650e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.7330e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">6.6310e-01</span><span class="p">,</span> <span class="mf">6.7740e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.2420e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.8190e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.0940e-02</span><span class="p">,</span> <span class="mf">5.3320e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.1690e-09</span><span class="p">,</span> <span class="mf">3.2880e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.2830e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1310e-08</span><span class="p">,</span> <span class="mf">1.9180e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">3.4090e-06</span><span class="p">,</span> <span class="mf">8.0350e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">1.4650e-08</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PropyleneGlycol.coefficient_viscosity"><a class="viewcode-back" href="../../fluid_propylene_glycol.html#scp.propylene_glycol.PropyleneGlycol.coefficient_viscosity">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_viscosity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">6.8370e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0450e-02</span><span class="p">,</span> <span class="mf">2.5250e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3990e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.3280e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.9840e-04</span><span class="p">,</span> <span class="mf">4.3320e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.8600e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">5.4530e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6000e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5930e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.4650e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">3.9000e-06</span><span class="p">,</span> <span class="mf">1.0540e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5890e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.5870e-08</span><span class="p">,</span> <span class="mf">4.4750e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.5640e-09</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PropyleneGlycol.coefficient_specific_heat"><a class="viewcode-back" href="../../fluid_propylene_glycol.html#scp.propylene_glycol.PropyleneGlycol.coefficient_specific_heat">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_specific_heat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">3.8820e03</span><span class="p">,</span> <span class="mf">2.6990e00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.6590e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0320e-05</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.3040e01</span><span class="p">,</span> <span class="mf">5.0700e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.7520e-05</span><span class="p">,</span> <span class="mf">1.5220e-06</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.5980e-01</span><span class="p">,</span> <span class="mf">9.5340e-05</span><span class="p">,</span> <span class="mf">1.1670e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.8700e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">3.5390e-04</span><span class="p">,</span> <span class="mf">3.1020e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9500e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">5.0000e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.1350e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">4.9590e-07</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PropyleneGlycol.coefficient_conductivity"><a class="viewcode-back" href="../../fluid_propylene_glycol.html#scp.propylene_glycol.PropyleneGlycol.coefficient_conductivity">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">4.5130e-01</span><span class="p">,</span> <span class="mf">7.9550e-04</span><span class="p">,</span> <span class="mf">3.4820e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.9660e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">4.7950e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.6780e-05</span><span class="p">,</span> <span class="mf">8.9410e-08</span><span class="p">,</span> <span class="mf">1.4930e-10</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.0760e-05</span><span class="p">,</span> <span class="mf">1.5630e-07</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.6150e-09</span><span class="p">,</span> <span class="mf">9.8970e-12</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">9.0830e-08</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5180e-09</span><span class="p">,</span> <span class="mf">6.5430e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">5.9520e-10</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.6050e-11</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.1040e-11</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PropyleneGlycol.coefficient_density"><a class="viewcode-back" href="../../fluid_propylene_glycol.html#scp.propylene_glycol.PropyleneGlycol.coefficient_density">[docs]</a>    <span class="k">def</span> <span class="nf">coefficient_density</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">1.0180e03</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.4060e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6660e-03</span><span class="p">,</span> <span class="mf">1.3470e-05</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">7.6040e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.4500e-03</span><span class="p">,</span> <span class="mf">5.5410e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3430e-07</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">2.4980e-03</span><span class="p">,</span> <span class="mf">2.7000e-05</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0180e-07</span><span class="p">,</span> <span class="mf">3.3760e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.5500e-04</span><span class="p">,</span> <span class="mf">2.8290e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.1750e-09</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="mf">1.1310e-06</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.2210e-08</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">2.3420e-08</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for a propylene glycol mixture instance</span>
+
+<span class="sd">        @param x: Concentration fraction, from 0 to 0.6</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_base</span> <span class="o">=</span> <span class="mf">30.7031</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_base</span> <span class="o">=</span> <span class="mf">32.7083</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_freeze</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeze_point</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fluid_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a descriptive title for this fluid</span>
+<span class="sd">        @return: &quot;PropyleneGlycol&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;PropyleneGlycol&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mitchell, M.; Lee, E..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

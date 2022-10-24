@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scp.base_fluid &mdash; SecondaryCoolantProps 1.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SecondaryCoolantProps
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base_fluids.html">Fluid Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../prog_usage.html">Preferred Programmatic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fluid_instances.html">Supported Fluids</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SecondaryCoolantProps</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>scp.base_fluid</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scp.base_fluid</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">abstractproperty</span>
+
+
+<div class="viewcode-block" id="BaseFluid"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid">[docs]</a><span class="k">class</span> <span class="nc">BaseFluid</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A fluid base class that provides convenience methods that can be accessed</span>
+<span class="sd">    in derived classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">t_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">t_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A constructor for a base fluid, that takes a concentration as an argument.</span>
+<span class="sd">        Derived classes can decide how to handle the concentration argument and</span>
+<span class="sd">        their own constructor interface as needed to construct and manage that</span>
+<span class="sd">        specific derived class.</span>
+
+<span class="sd">        @param t_min: Minimum temperature, in degrees Celsius</span>
+<span class="sd">        @param t_max: Maximum temperature, in degrees Celsius</span>
+<span class="sd">        @param x: Concentration fraction, from 0 to 1</span>
+<span class="sd">        @param x_min: Minimum concentration fraction, from 0 to 1</span>
+<span class="sd">        @param x_max: Maximum concentration fraction, from 0 to 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_max</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_temperature_limits</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa: E721</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_pct</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_concentration_limits</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+
+    <span class="nd">@abstractproperty</span>
+    <span class="k">def</span> <span class="nf">fluid_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An abstract property that needs to return the fluid name in derived fluid classes</span>
+
+<span class="sd">        Derived function must be decorated with @property</span>
+
+<span class="sd">        @return: string name of the fluid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_set_concentration_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An internal worker function that checks the given concentration against limits,</span>
+<span class="sd">        and sets internal variables.</span>
+
+<span class="sd">        @param x: The concentration fraction to check, ranging from 0 to 1</span>
+<span class="sd">        @param x_min: The minimum concentration fraction to allow, ranging from 0 to 1</span>
+<span class="sd">        @param x_max: The maximum concentration fraction to allow, ranging from 0 to 1</span>
+<span class="sd">        @return: Nothing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">x_min</span> <span class="o">&gt;=</span> <span class="n">x_max</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Developer error: Fluid &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fluid_name</span><span class="si">}</span><span class="s1">&quot;, x_min is greater than x_max&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">=</span> <span class="n">x_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> <span class="o">=</span> <span class="n">x_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_concentration</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_pct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">def</span> <span class="nf">_check_concentration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An internal worker function that checks the given concentration against limits</span>
+
+<span class="sd">        @param x: The concentration to check, in percent</span>
+<span class="sd">        @return: A validated concentration value, in percent</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Fluid &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fluid_name</span><span class="si">}</span><span class="s1">&quot;, concentration must be greater than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Resetting concentration to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Fluid &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fluid_name</span><span class="si">}</span><span class="s1">&quot;, concentration must be less than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Resetting concentration to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">_set_temperature_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A worker function to override the default temperature min/max values</span>
+
+<span class="sd">        @param t_min: The minimum temperature value to allow, in degrees Celsius</span>
+<span class="sd">        @param t_max: The maximum temperature value to allow, in degrees Celsius</span>
+<span class="sd">        @return: Nothing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">t_min</span> <span class="o">&gt;=</span> <span class="n">t_max</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Fluid &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fluid_name</span><span class="si">}</span><span class="s1">&quot;, t_min is greater than t_max&#39;</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span> <span class="o">=</span> <span class="n">t_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_max</span> <span class="o">=</span> <span class="n">t_max</span>
+
+    <span class="k">def</span> <span class="nf">_check_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An internal worker function that checks the given temperature against limits</span>
+
+<span class="sd">        @param temp: The temperature to check, in degrees Celsius</span>
+<span class="sd">        @return: A validated temperature value, in degrees Celsius</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Fluid &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fluid_name</span><span class="si">}</span><span class="s1">&quot;, temperature must be greater than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t_min</span><span class="si">:</span><span class="s1">0.1f</span><span class="si">}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Resetting temperature to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t_min</span><span class="si">:</span><span class="s2">0.1f</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_min</span>
+        <span class="k">elif</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_max</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Fluid &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fluid_name</span><span class="si">}</span><span class="s1">&quot;, temperature must be less than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t_max</span><span class="si">:</span><span class="s1">0.1f</span><span class="si">}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Resetting temperature to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t_max</span><span class="si">:</span><span class="s2">0.1f</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_max</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">temp</span>
+
+<div class="viewcode-block" id="BaseFluid.freeze_point"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.freeze_point">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">freeze_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes shoule override the freezing</span>
+<span class="sd">        point of that fluid</span>
+
+<span class="sd">        @param x: Fluid concentration fraction, ranging from 0 to 1</span>
+<span class="sd">        @return Returns the freezing point of the fluid, in Celsius</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseFluid.freeze_point_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.freeze_point_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">freeze_point_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;C&quot;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.viscosity"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.viscosity">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">viscosity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the dynamic</span>
+<span class="sd">        viscosity of that fluid.</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the dynamic viscosity in [Pa-s]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseFluid.viscosity_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.viscosity_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">viscosity_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Pa-s&quot;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.mu"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.mu">[docs]</a>    <span class="k">def</span> <span class="nf">mu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function for returning the dynamic viscosity by the common letter &#39;mu&#39;</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the dynamic viscosity -- which one is mu in [Pa-s]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">viscosity</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFluid.specific_heat"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.specific_heat">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">specific_heat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the specific heat</span>
+<span class="sd">        of that fluid.</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the specific heat in [J/kg-K]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseFluid.specific_heat_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.specific_heat_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">specific_heat_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;J/kg-K&#39;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.cp"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.cp">[docs]</a>    <span class="k">def</span> <span class="nf">cp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function for returning the specific heat by the common shorthand &#39;cp&#39;</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the specific heat in [J/kg-K]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_heat</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFluid.density"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.density">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the density</span>
+<span class="sd">        of that fluid.</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the density in [kg/m3]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseFluid.density_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.density_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">density_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;kg/m3&#39;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.rho"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.rho">[docs]</a>    <span class="k">def</span> <span class="nf">rho</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function for returning the density by the common shorthand &#39;rho&#39;</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the density, in [kg/m3]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFluid.conductivity"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.conductivity">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method; derived classes should override to return the thermal</span>
+<span class="sd">        conductivity of that fluid.</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the thermal conductivity in [W/m-K]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseFluid.conductivity_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.conductivity_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">conductivity_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;W/m-K&#39;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.k"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.k">[docs]</a>    <span class="k">def</span> <span class="nf">k</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function for returning the thermal conductivity by the common shorthand &#39;k&#39;</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the thermal conductivity, in [W/m-K]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conductivity</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFluid.prandtl"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.prandtl">[docs]</a>    <span class="k">def</span> <span class="nf">prandtl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the Prandtl number for this fluid</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the dimensionless Prandtl number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cp</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFluid.prandtl_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.prandtl_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">prandtl_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;-&#39;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.pr"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.pr">[docs]</a>    <span class="k">def</span> <span class="nf">pr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function for returning the Prandtl number by the common shorthand &#39;pr&#39;</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the dimensionless Prandtl number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prandtl</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseFluid.thermal_diffusivity"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.thermal_diffusivity">[docs]</a>    <span class="k">def</span> <span class="nf">thermal_diffusivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the thermal diffusivity for this fluid</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the thermal diffusivity in [m2/s]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cp</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BaseFluid.thermal_diffusivity_units"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.thermal_diffusivity_units">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">thermal_diffusivity_units</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;m2/s&#39;</span></div>
+
+<div class="viewcode-block" id="BaseFluid.alpha"><a class="viewcode-back" href="../../fluid_base.html#scp.base_fluid.BaseFluid.alpha">[docs]</a>    <span class="k">def</span> <span class="nf">alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function for returning the thermal diffusivity by the common shorthand &#39;alpha&#39;</span>
+
+<span class="sd">        @param temp: Fluid temperature, in degrees Celsius</span>
+<span class="sd">        @return: Returns the thermal diffusivity in [m2/s]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">thermal_diffusivity</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mitchell, M.; Lee, E..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
