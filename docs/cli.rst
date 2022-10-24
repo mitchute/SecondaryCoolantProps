@@ -14,7 +14,7 @@ The command has a help argument with output similar to this (execute manually to
       -x, --concentration FLOAT RANGE
                                       Mixture concentration fraction. Default 0.0.
                                       [0.0<=x<=1.0]
-      -p, --property [viscosity|specific_heat|density|conductivity|prandtl|thermal_diffusivity]
+      -p, --property [viscosity|specific_heat|density|conductivity|prandtl|thermal_diffusivity|freeze_point]
                                       Which fluid property to evaluate.
                                       [required]
       -t, --temperature FLOAT         Fluid temperature, in degrees Celsius.
