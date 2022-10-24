@@ -8,6 +8,16 @@ class MethylAlcohol(BaseMelinder):
     A derived fluid class for methyl alcohol and water mixtures
     """
 
+    def coefficient_freezing(self) -> Tuple:
+        return (
+            (-2.6290e+01, -2.5750e-06, -6.7320e-06, 1.6300e-07),
+            (-1.1870e+00, -1.6090e-05, 3.4200e-07, 5.6870e-10),
+            (-1.2180e-02, 3.8650e-07, 8.7680e-09, -2.0950e-10),
+            (-6.8230e-05, 2.1370e-08, -4.2710e-10),
+            (1.2970e-07, -5.4070e-10),
+            (2.3630e-08,),
+        )
+
     def coefficient_viscosity(self) -> Tuple:
         return (
             (1.1530e00, -3.8660e-02, 2.7790e-04, -1.5430e-06),
@@ -56,29 +66,9 @@ class MethylAlcohol(BaseMelinder):
         """
 
         super().__init__(0.0, 40.0, x, 0.0, 0.6)
-        self.t_min = self.t_freeze = self.calc_freeze_point(x)
-
         self.x_base = 30.5128
         self.t_base = 3.5359
-
-    def calc_freeze_point(self, x: float) -> float:
-        """
-        Calculate the freezing point temperature of the mixture
-
-        Based on a curve fit of the Methyl Alcohol freezing points
-        Engineering Toolbox - https://www.engineeringtoolbox.com/methanol-water-d_987.html
-        """
-
-        # should return 0 C for low concentrations
-        if x < 0.05:
-            return 0
-
-        # polynomial fit
-        # t_f = a + b * conc + c * conc**2 + d * conc**3
-        x = self._check_concentration(x)
-        coefficient_freeze = [6.9312e-01, -5.6953e-01, -1.2817e-02, 4.3210e-05]
-        c_pow = [x**p for p in range(4)]
-        return sum(i * j for i, j in zip(coefficient_freeze, c_pow))
+        self.t_min = self.t_freeze = self.freeze_point(x)
 
     @property
     def fluid_name(self) -> str:

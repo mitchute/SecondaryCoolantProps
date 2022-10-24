@@ -123,3 +123,22 @@ class TestPropyleneGlycol(TestCase):
 
         # Cond @ T=40degC, X=0.4: 4.1321e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(40), 4.1321e-01, delta=4.1321e-04)
+
+    def test_t_freeze(self):
+        # T_freeze @ X=0.1: -2.867. ErrTol=0.01C
+        self.assertAlmostEqual(PropyleneGlycol(0.1).freeze_point(0.1), -2.867, delta=1.0e-02)
+
+        # T_freeze @ X=0.2: -7.173. ErrTol=0.01C
+        self.assertAlmostEqual(PropyleneGlycol(0.2).freeze_point(0.2), -7.173, delta=1.0e-02)
+
+        # T_freeze @ X=0.3: -12.789. ErrTol=0.01C
+        self.assertAlmostEqual(PropyleneGlycol(0.3).freeze_point(0.3), -12.789, delta=1.0e-02)
+
+        # T_freeze @ X=0.4: -20.568. ErrTol=0.01C
+        self.assertAlmostEqual(PropyleneGlycol(0.4).freeze_point(0.4), -20.568, delta=1.0e-02)
+
+        # T_freeze @ X=0.5: -32.193. ErrTol=0.01C
+        self.assertAlmostEqual(PropyleneGlycol(0.5).freeze_point(0.5), -32.193, delta=1.0e-02)
+
+        # T_freeze @ X=0.6: -50.003. ErrTol=0.01C
+        self.assertAlmostEqual(PropyleneGlycol(0.6).freeze_point(0.6), -50.003, delta=1.0e-02)

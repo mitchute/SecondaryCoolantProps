@@ -74,6 +74,15 @@ class Water(BaseFluid):
             + (temp**4) * acp4
         ) * 1000
 
+    def freeze_point(self, _=None) -> float:
+        """
+        Returns the freezing point temperature of water
+
+        @param _: Unused variable
+        @return Freezing point temperature, in Celsius
+        """
+        return 0.0
+
     def conductivity(self, temp: float) -> float:
         """
         Returns the fluid thermal conductivity for this derived fluid.

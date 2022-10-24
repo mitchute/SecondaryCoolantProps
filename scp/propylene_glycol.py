@@ -8,6 +8,16 @@ class PropyleneGlycol(BaseMelinder):
     A derived fluid class for propylene glycol and water mixtures
     """
 
+    def coefficient_freezing(self) -> Tuple:
+        return (
+            (-1.3250e+01, -3.8200e-05, 7.8650e-07, -1.7330e-09),
+            (-6.6310e-01, 6.7740e-06, -6.2420e-08, -7.8190e-10),
+            (-1.0940e-02, 5.3320e-08, -4.1690e-09, 3.2880e-11),
+            (-2.2830e-04, -1.1310e-08, 1.9180e-10),
+            (-3.4090e-06, 8.0350e-11),
+            (1.4650e-08,),
+        )
+
     def coefficient_viscosity(self) -> Tuple:
         return (
             (6.8370e-01, -3.0450e-02, 2.5250e-04, -1.3990e-06),
@@ -56,29 +66,9 @@ class PropyleneGlycol(BaseMelinder):
         """
 
         super().__init__(0.0, 100.0, x, 0.0, 0.6)
-        self.t_min = self.t_freeze = self.calc_freeze_point(x)
-
         self.x_base = 30.7031
         self.t_base = 32.7083
-
-    def calc_freeze_point(self, x: float) -> float:
-        """
-        Calculate the freezing point temperature of the mixture
-
-        Based on a curve fit of the Propylene Glycol freezing points
-        listed in Chapter 31, Table 5 of the ASHRAE Handbook of Fundamentals, 2009
-        """
-
-        # should return 0 C for low concentrations
-        if x < 0.05:
-            return 0
-
-        # polynomial fit
-        # t_f = a + b * conc + c * conc**2 + d * conc**3
-        x = self._check_concentration(x)
-        coefficient_freeze = [7.1734e-03, -3.3692e-01, 2.8466e-03, -1.9024e-04]
-        c_pow = [x**p for p in range(4)]
-        return sum(i * j for i, j in zip(coefficient_freeze, c_pow))
+        self.t_min = self.t_freeze = self.freeze_point(x)
 
     @property
     def fluid_name(self) -> str:

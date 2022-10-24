@@ -123,3 +123,22 @@ class TestMethylAlcohol(TestCase):
 
         # Cond @ T=40degC, X=0.4: 3.9646e-01. Err Tol: 0.1%
         self.assertAlmostEqual(p.conductivity(40), 3.9646e-01, delta=3.9646e-04)
+
+    def test_t_freeze(self):
+        # T_freeze @ X=0.1: -6.540. ErrTol=0.01C
+        self.assertAlmostEqual(MethylAlcohol(0.1).freeze_point(0.1), -6.540, delta=1.0e-02)
+
+        # T_freeze @ X=0.2: -15.080. ErrTol=0.01C
+        self.assertAlmostEqual(MethylAlcohol(0.2).freeze_point(0.2), -15.080, delta=1.0e-02)
+
+        # T_freeze @ X=0.3: -25.685. ErrTol=0.01C
+        self.assertAlmostEqual(MethylAlcohol(0.3).freeze_point(0.3), -25.685, delta=1.0e-02)
+
+        # T_freeze @ X=0.4: -38.703. ErrTol=0.01C
+        self.assertAlmostEqual(MethylAlcohol(0.4).freeze_point(0.4), -38.703, delta=1.0e-02)
+
+        # T_freeze @ X=0.5: -54.466. ErrTol=0.01C
+        self.assertAlmostEqual(MethylAlcohol(0.5).freeze_point(0.5), -54.466, delta=1.0e-02)
+
+        # T_freeze @ X=0.6: -73.006. ErrTol=0.01C
+        self.assertAlmostEqual(MethylAlcohol(0.6).freeze_point(0.6), -73.006, delta=1.0e-02)

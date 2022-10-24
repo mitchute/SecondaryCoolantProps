@@ -8,6 +8,16 @@ class EthyleneGlycol(BaseMelinder):
     A derived fluid class for ethylene glycol and water mixtures
     """
 
+    def coefficient_freezing(self) -> Tuple:
+        return (
+            (-1.5250e+01, -1.5660e-06, -2.2780e-07, 2.1690e-09),
+            (-8.0800e-01, -1.3390e-06, 2.0470e-08, -2.7170e-11),
+            (-1.3340e-02, 6.3220e-08, 2.3730e-10, -2.1830e-12),
+            (-7.2930e-05, 1.7640e-09, -2.4420e-11),
+            (1.0060e-06, -7.6620e-11),
+            (1.1400e-09,),
+        )
+
     def coefficient_viscosity(self) -> Tuple:
         return (
             (4.7050e-01, -2.5500e-02, 1.7820e-04, -7.6690e-07),
@@ -56,31 +66,9 @@ class EthyleneGlycol(BaseMelinder):
         """
 
         super().__init__(0.0, 100, x, 0.0, 0.6)
-        self.t_min = self.t_freeze = self.calc_freeze_point(x)
-
         self.x_base = 30.8462
         self.t_base = 31.728
-
-    def calc_freeze_point(self, x: float) -> float:
-        """
-        Calculate the freezing point temperature of the mixture
-
-        Based on a curve fit of the Ethylene Glycol freezing points
-        listed in Chapter 31, Table 4 of the ASHRAE Handbook of Fundamentals, 2009
-
-        @param x: Concentration fraction, from 0 to 0.6
-        """
-
-        # should return 0 C for low concentrations
-        if x < 0.05:
-            return 0
-
-        # polynomial fit
-        # t_f = a + b * conc + c * conc**2 + d * conc**3
-        x = self._check_concentration(x)
-        coefficient_freeze = [5.4792e-02, -2.9922e-01, -2.7478e-03, -9.5960e-05]
-        c_pow = [x**p for p in range(4)]
-        return sum(i * j for i, j in zip(coefficient_freeze, c_pow))
+        self.t_min = self.t_freeze = self.freeze_point(x)
 
     @property
     def fluid_name(self) -> str:
