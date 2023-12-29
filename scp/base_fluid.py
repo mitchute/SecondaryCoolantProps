@@ -1,6 +1,9 @@
 import warnings
-from abc import ABC, abstractmethod, abstractproperty
 
+import numpy as np
+
+from abc import ABC, abstractmethod
+from typing import Union
 
 class BaseFluid(ABC):
     """
@@ -40,7 +43,7 @@ class BaseFluid(ABC):
             self.x_pct = None
             self._set_concentration_limits(x, x_min, x_max)
 
-    @abstractproperty
+    @abstractmethod
     def fluid_name(self) -> str:
         """
         An abstract property that needs to return the fluid name in derived fluid classes
@@ -108,31 +111,34 @@ class BaseFluid(ABC):
         self.t_min = t_min
         self.t_max = t_max
 
-    def _check_temperature(self, temp: float) -> float:
+    def _check_temperature(self, temp: Union[float, list, tuple, np.ndarray]) -> np.array:
         """
         An internal worker function that checks the given temperature against limits
 
-        @param temp: The temperature to check, in degrees Celsius
+        @param temp: The temperature(s) to check, in degrees Celsius
         @return: A validated temperature value, in degrees Celsius
         """
 
-        if temp < self.t_min:
+        # convert to numpy array
+        temp = np.array(temp)
+
+        if np.any(temp < self.t_min):
             msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.1f}.\n'
             msg += f"Resetting temperature to {self.t_min:0.1f}."
             warnings.warn(msg)
-            return self.t_min
-        elif temp > self.t_max:
+            return np.full(temp.shape, self.t_min)
+        elif np.any(temp > self.t_max):
             msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.1f}.\n'
             msg += f"Resetting temperature to {self.t_max:0.1f}."
             warnings.warn(msg)
-            return self.t_max
+            return np.full(temp.shape, self.t_max)
         else:
             return temp
 
     @abstractmethod
     def freeze_point(self, x: float) -> float:
         """
-        Abstract method; derived classes shoule override the freezing
+        Abstract method; derived classes should override the freezing
         point of that fluid
 
         @param x: Fluid concentration fraction, ranging from 0 to 1

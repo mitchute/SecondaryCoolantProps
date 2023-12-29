@@ -1,6 +1,8 @@
 from abc import abstractmethod
 from math import exp
-from typing import Tuple
+from typing import Tuple, Union
+
+import numpy as np
 
 from scp.base_fluid import BaseFluid
 
@@ -118,7 +120,7 @@ class BaseMelinder(BaseFluid):
 
         return f_ret
 
-    def _f_prop(self, c_arr: Tuple, temp: float) -> float:
+    def _f_prop(self, c_arr: Tuple, temp: Union[float, tuple, list]) -> np.ndarray:
         """
         General worker function to evaluate fluid properties as
         a function of concentration and temperature.
@@ -136,14 +138,14 @@ class BaseMelinder(BaseFluid):
         x_xm = [xxm**p for p in range(6)]
         y_ym = [yym**p for p in range(4)]
 
-        f_ret = 0.0
+        f_ret = np.zeros(temp.shape)
 
         for i, j in BaseMelinder._ij_pairs:
             f_ret += c_arr[i][j] * x_xm[i] * y_ym[j]
 
         return f_ret
 
-    def viscosity(self, temp: float) -> float:
+    def viscosity(self, temp: Union[float, tuple, list]) -> float:
         """
         Calculate the dynamic viscosity of the mixture
 
@@ -151,9 +153,9 @@ class BaseMelinder(BaseFluid):
         @return: Dynamic viscosity, in N/m2-s, or Pa-s
         """
 
-        return exp(self._f_prop(self.coefficient_viscosity(), temp)) / 1000.0
+        return np.exp(self._f_prop(self.coefficient_viscosity(), temp)) / 1000.0
 
-    def specific_heat(self, temp: float) -> float:
+    def specific_heat(self, temp: Union[float, tuple, list]) -> np.ndarray:
         """
         Calculates the specific heat of the mixture
 
@@ -163,7 +165,7 @@ class BaseMelinder(BaseFluid):
 
         return self._f_prop(self.coefficient_specific_heat(), temp)
 
-    def conductivity(self, temp: float) -> float:
+    def conductivity(self, temp: Union[float, tuple, list]) -> np.ndarray:
         """
         Calculates the thermal conductivity of the mixture
 
@@ -173,7 +175,7 @@ class BaseMelinder(BaseFluid):
 
         return self._f_prop(self.coefficient_conductivity(), temp)
 
-    def density(self, temp: float) -> float:
+    def density(self, temp: Union[float, tuple, list]) -> np.ndarray:
         """
         Calculates the density of the mixture
 
