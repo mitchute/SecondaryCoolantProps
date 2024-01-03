@@ -60,7 +60,7 @@ def test_60_per():
     np.testing.assert_almost_equal(p.conductivity(list_of_concentration),
                                    [p.conductivity(i) for i in list_of_concentration], decimal=1)
 
-test_0_per()test_0_per()
+test_0_per()
 test_20_per()
 test_40_per()
 test_60_per()
