@@ -138,7 +138,7 @@ class BaseMelinder(BaseFluid):
         x_xm = [xxm**p for p in range(6)]
         y_ym = [yym**p for p in range(4)]
 
-        f_ret = np.zeros(temp.shape)
+        f_ret = np.zeros(temp.shape) if isinstance(temp, np.ndarray) else 0.
 
         for i, j in BaseMelinder._ij_pairs:
             f_ret += c_arr[i][j] * x_xm[i] * y_ym[j]
