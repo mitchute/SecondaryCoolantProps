@@ -118,21 +118,32 @@ class BaseFluid(ABC):
         @param temp: The temperature(s) to check, in degrees Celsius
         @return: A validated temperature value, in degrees Celsius
         """
-
         if not isinstance(temp, (float, int)):
             # convert only if not a scalar
             temp = np.array(temp)
 
-        if np.any(temp < self.t_min):
+            if np.any(temp < self.t_min):
+                msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.1f}.\n'
+                msg += f"Resetting temperature to {self.t_min:0.1f}."
+                warnings.warn(msg)
+                return np.full(temp.shape, self.t_min)
+            if np.any(temp > self.t_max):
+                msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.1f}.\n'
+                msg += f"Resetting temperature to {self.t_max:0.1f}."
+                warnings.warn(msg)
+                return np.full(temp.shape, self.t_max)
+            return temp
+
+        if temp < self.t_min:
             msg = f'Fluid "{self.fluid_name}", temperature must be greater than {self.t_min:0.1f}.\n'
             msg += f"Resetting temperature to {self.t_min:0.1f}."
             warnings.warn(msg)
-            return self.t_min if isinstance(temp, (float, int)) else np.full(temp.shape, self.t_min)
-        if np.any(temp > self.t_max):
+            return self.t_min
+        if temp > self.t_max:
             msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.1f}.\n'
             msg += f"Resetting temperature to {self.t_max:0.1f}."
             warnings.warn(msg)
-            return self.t_max if isinstance(temp, (float, int)) else np.full(temp.shape, self.t_max)
+            return self.t_max
         return temp
 
     @abstractmethod
