@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from math import exp
 from typing import Tuple, Union
-
+import time
 import numpy as np
 
 from scp.base_fluid import BaseFluid
@@ -130,8 +130,9 @@ class BaseMelinder(BaseFluid):
 
         @return:
         """
-
+        start = time.perf_counter()
         temp = self._check_temperature(temp)
+        start = time.perf_counter()
 
         xxm = self.x_pct - self.x_base
         yym = temp - self.t_base

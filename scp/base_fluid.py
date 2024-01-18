@@ -128,13 +128,12 @@ class BaseFluid(ABC):
             msg += f"Resetting temperature to {self.t_min:0.1f}."
             warnings.warn(msg)
             return self.t_min if isinstance(temp, (float, int)) else np.full(temp.shape, self.t_min)
-        elif np.any(temp > self.t_max):
+        if np.any(temp > self.t_max):
             msg = f'Fluid "{self.fluid_name}", temperature must be less than {self.t_max:0.1f}.\n'
             msg += f"Resetting temperature to {self.t_max:0.1f}."
             warnings.warn(msg)
             return self.t_max if isinstance(temp, (float, int)) else np.full(temp.shape, self.t_max)
-        else:
-            return temp
+        return temp
 
     @abstractmethod
     def freeze_point(self, x: float) -> float:
