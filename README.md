@@ -1,6 +1,7 @@
 # Secondary Coolant Props
 
-This repo contains some fluid property routines for secondary coolants.
+This repo contains some fluid property routines for secondary coolants, and is based on the correlations developed by Åke Melinder, 2010 "Properties of Secondary Working Fluids for Indirect Systems" 2nd ed., International Institute of Refrigeration.
+
 This is intended to be a very lightweight library that can be imported into any other Python tool very easily, with no bulky dependencies.
 
 ## Code Quality
