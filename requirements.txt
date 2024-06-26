@@ -1,5 +1,4 @@
-black
 click
-nose
+pytest
 sphinx
 sphinx-rtd-theme

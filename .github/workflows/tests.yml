@@ -6,7 +6,7 @@ jobs:
   builds:
     strategy:
       matrix:
-        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+        python-version: [ "3.9", "3.12" ]
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
@@ -19,7 +19,7 @@ jobs:
           python-version:  ${{ matrix.python-version }}
 
       - name: Install Pip Dependencies
-        run: pip install nose coverage
+        run: pip install pytest
 
       - name: Run Tests
-        run: nosetests --with-coverage --cover-package scp  # --cover-html for local html results
+        run: python -m pytest -v

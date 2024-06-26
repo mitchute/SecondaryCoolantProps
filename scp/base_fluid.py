@@ -1,5 +1,5 @@
 import warnings
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
 
 class BaseFluid(ABC):
@@ -40,7 +40,7 @@ class BaseFluid(ABC):
             self.x_pct = None
             self._set_concentration_limits(x, x_min, x_max)
 
-    @abstractproperty
+    @abstractmethod
     def fluid_name(self) -> str:
         """
         An abstract property that needs to return the fluid name in derived fluid classes
