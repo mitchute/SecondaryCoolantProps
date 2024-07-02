@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.12
 
     - name: Install Pip Dependencies
       shell: bash
@@ -30,4 +30,4 @@ jobs:
       with:
         user: __token__
         password: ${{ secrets.REALPYPIPW }}
-        repository_url: https://upload.pypi.org/legacy/
+        repository-url: https://upload.pypi.org/legacy/
