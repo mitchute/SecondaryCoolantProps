@@ -25,7 +25,7 @@ class Water(BaseFluid):
         @return: The dynamic viscosity of water in [Pa-s]
         """
 
-        self._check_temperature(temp)
+        temp = self._check_temperature(temp)
 
         am0 = -3.30233
         am1 = 1301
@@ -40,6 +40,7 @@ class Water(BaseFluid):
         am11 = -0.0059231
         am12 = 2.1249e-05
         am13 = -2.69575e-08
+
         if temp < 20:
             exponent = am0 + am1 / (am2 + (temp - 20) * (am3 + am4 * (temp - 20)))
             return (10**exponent) * 0.1
@@ -58,7 +59,7 @@ class Water(BaseFluid):
         @return: Specific heat, in [J/kg-K]
         """
 
-        self._check_temperature(temp)
+        temp = self._check_temperature(temp)
 
         acp0 = 4.21534
         acp1 = -0.00287819
@@ -93,7 +94,7 @@ class Water(BaseFluid):
         @return: Thermal conductivity, in [W/m-K]
         """
 
-        self._check_temperature(temp)
+        temp = self._check_temperature(temp)
 
         ak0 = 0.560101
         ak1 = 0.00211703
@@ -115,7 +116,7 @@ class Water(BaseFluid):
         @return: Density, in [kg/m3]
         """
 
-        self._check_temperature(temp)
+        temp = self._check_temperature(temp)
 
         ar0 = 999.83952
         ar1 = 16.945176

@@ -1,3 +1,5 @@
+import pytest
+
 from unittest import TestCase
 
 from scp.ethyl_alcohol import EthylAlcohol
@@ -142,3 +144,9 @@ class TestPropyleneGlycol(TestCase):
 
         # T_freeze @ X=0.6: -44.910. ErrTol=0.01C
         self.assertAlmostEqual(EthylAlcohol(0.6).freeze_point(0.6), -44.910, delta=1.0e-02)
+
+    @pytest.mark.filterwarnings("ignore::UserWarning")
+    def test_out_of_range_temps(self):
+        p = EthylAlcohol(0.4)
+        self.assertAlmostEqual(p.density(-50), p.density(p.t_min), delta=0.01)
+        self.assertAlmostEqual(p.density(150), p.density(p.t_max), delta=0.01)
