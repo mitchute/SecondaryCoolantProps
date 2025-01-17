@@ -1,3 +1,5 @@
+import pytest
+
 from unittest import TestCase
 
 from scp.water import Water
@@ -123,3 +125,8 @@ class TestWater(TestCase):
 
     def test_t_freeze(self):
         self.assertAlmostEqual(Water().freeze_point(), 0.000, delta=1.0e-02)
+
+    @pytest.mark.filterwarnings("ignore::UserWarning")
+    def test_out_of_range_temps(self):
+        self.assertAlmostEqual(self.p.density(-10), self.p.density(Water().t_min), delta=0.01)
+        self.assertAlmostEqual(self.p.density(110), self.p.density(Water().t_max), delta=0.01)
