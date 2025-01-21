@@ -6,20 +6,19 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import importlib.metadata
-
+import datetime
 from pathlib import Path
 from sys import path
+
+import toml
 
 root_dir = Path(__file__).parent.parent.resolve()
 path.insert(0, str(root_dir))
 
-import datetime
-
 project = 'SecondaryCoolantProps'
 copyright = f'{datetime.date.today().year}, Mitchell, M.; Lee, E.'
 author = 'Matt Mitchell, Edwin Lee'
-release = importlib.metadata.version("SecondaryCoolantProps")
+release = toml.load('../pyproject.toml')['tool']['poetry']['version']
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
