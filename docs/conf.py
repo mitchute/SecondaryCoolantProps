@@ -10,7 +10,7 @@ import datetime
 from pathlib import Path
 from sys import path
 
-import toml
+from scp import VERSION
 
 root_dir = Path(__file__).parent.parent.resolve()
 path.insert(0, str(root_dir))
@@ -18,7 +18,7 @@ path.insert(0, str(root_dir))
 project = 'SecondaryCoolantProps'
 copyright = f'{datetime.date.today().year}, Mitchell, M.; Lee, E.'
 author = 'Matt Mitchell, Edwin Lee'
-release = toml.load('../pyproject.toml')['tool']['poetry']['version']
+release = VERSION
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

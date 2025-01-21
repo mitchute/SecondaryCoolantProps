@@ -21,7 +21,6 @@ pytest = "^8"
 pytest-cov = "^6"
 sphinx = "^7.0"
 sphinx-rtd-theme = "^3"
-toml = "^0.10"
 
 [build-system]
 requires = ["poetry-core"]
