@@ -6,6 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import importlib.metadata
+
 from pathlib import Path
 from sys import path
 
@@ -14,12 +16,10 @@ path.insert(0, str(root_dir))
 
 import datetime
 
-from scp import VERSION
-
 project = 'SecondaryCoolantProps'
 copyright = f'{datetime.date.today().year}, Mitchell, M.; Lee, E.'
 author = 'Matt Mitchell, Edwin Lee'
-release = VERSION
+release = importlib.metadata.version("SecondaryCoolantProps")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
