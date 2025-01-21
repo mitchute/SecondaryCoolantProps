@@ -132,7 +132,7 @@ class BaseFluid(ABC):
     @abstractmethod
     def freeze_point(self, x: float) -> float:
         """
-        Abstract method; derived classes shoule override the freezing
+        Abstract method; derived classes should override the freezing
         point of that fluid
 
         @param x: Fluid concentration fraction, ranging from 0 to 1
