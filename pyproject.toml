@@ -16,6 +16,7 @@ python = ">=3.9,<3.14"
 click = "^8.0"
 
 [tool.poetry.group.dev.dependencies]
+importlib-metadata = "^8"
 flake8 = "^7"
 pytest = "^8"
 pytest-cov = "^6"
