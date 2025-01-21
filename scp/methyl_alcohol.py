@@ -60,7 +60,7 @@ class MethylAlcohol(BaseMelinder):
 
     def __init__(self, x: float) -> None:
         """
-        Constructor for an methyl alcohol mixture instance
+        Constructor for a methyl alcohol mixture instance
 
         @param x: Concentration fraction, from 0 to 0.6
         """

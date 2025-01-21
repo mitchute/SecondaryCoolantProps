@@ -1,3 +1,3 @@
 import importlib.metadata
 
-VERSION = importlib.metadata.version(__package__)
+VERSION = importlib.metadata.version("SecondaryCoolantProps")

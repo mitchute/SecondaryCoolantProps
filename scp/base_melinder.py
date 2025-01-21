@@ -20,7 +20,7 @@ from scp.base_fluid import BaseFluid
 class BaseMelinder(BaseFluid):
     """
     A base class for Melinder fluids that provides convenience methods
-    that can be accessed in derrived classes.
+    that can be accessed in derived classes.
 
     Melinder, Å. 2010. Properties of Secondary Working Fluids
     for Indirect Systems. 2nd ed. International Institute of Refrigeration.
