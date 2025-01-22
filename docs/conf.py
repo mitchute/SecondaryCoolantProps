@@ -6,15 +6,14 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import datetime
 from pathlib import Path
 from sys import path
 
+from scp import VERSION
+
 root_dir = Path(__file__).parent.parent.resolve()
 path.insert(0, str(root_dir))
-
-import datetime
-
-from scp import VERSION
 
 project = 'SecondaryCoolantProps'
 copyright = f'{datetime.date.today().year}, Mitchell, M.; Lee, E.'
